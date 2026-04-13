@@ -22,6 +22,10 @@ public class Banco {
         this.segundaCuenta = null;
     }
 
+    public Cuenta obtenerCuenta(String nombrePropietario) {
+        return this.obtenerPorUsuario(nombrePropietario);
+    }
+
     public void crearCuenta(TipoCuenta tipoCuenta, String nombrePropietario, String direccion) {
         if (this.primeraCuenta == null) {
             this.primeraCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion);

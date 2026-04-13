@@ -1,9 +1,11 @@
 package proyectoBanco.comandos;
 
-public class ComandoEliminar {
-    public final String usuario;
+import proyectoBanco.Administrador;
 
-    public ComandoEliminar(String usuario) {
-        this.usuario = usuario;
+public record ComandoEliminar(String usuario) implements Comando {
+
+    @Override
+    public void manejar(Administrador administrador) {
+        administrador.manejarEliminar(this);
     }
 }

@@ -1,5 +1,10 @@
 package proyectoBanco;
 
+import proyectoBanco.comandos.ComandoCrear;
+import proyectoBanco.comandos.ComandoEliminar;
+import proyectoBanco.comandos.ComandoSalir;
+import proyectoBanco.comandos.ServicioComando;
+
 public class Administrador {
     private Banco banco;
     private ServicioComando servicioComando;
@@ -10,6 +15,10 @@ public class Administrador {
         }
         return null;
     }
+
+    public void manejarCrear(ComandoCrear comandoCrear) {}
+    public void manejarEliminar(ComandoEliminar comandoEliminar) {}
+    public void manejarSalir(ComandoSalir comandoSalir) {}
 
     private void crearCuenta(TipoCuenta tipoCuenta, String usuario, String direccion) {
         this.banco.crearCuenta(tipoCuenta, usuario, direccion);

@@ -16,6 +16,9 @@ public class Administrador {
 
     private void procesarComando() {
         var comando = this.servicioComando.obtenerComando();
+        if (comando == null) {
+            return;
+        }
         comando.manejar(this.manejador);
     }
 

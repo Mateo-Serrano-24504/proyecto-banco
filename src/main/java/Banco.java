@@ -28,9 +28,9 @@ public class Banco {
 
     public void crearCuenta(TipoCuenta tipoCuenta, String nombrePropietario, String direccion) {
         if (this.primeraCuenta == null) {
-            this.primeraCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion);
+            this.primeraCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion, this);
         } else if (this.segundaCuenta == null) {
-            this.segundaCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion);
+            this.segundaCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion, this);
         }
     }
     public void eliminarCuenta(String nombrePropietario) {

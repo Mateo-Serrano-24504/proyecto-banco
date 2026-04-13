@@ -3,12 +3,14 @@ public class Cuenta {
     private String nombrePropietario;
     private String direccion;
     private int saldo;
+    private Banco banco;
 
-    Cuenta(TipoCuenta tipoCuenta, String nombrePropietario, String direccion) {
+    Cuenta(TipoCuenta tipoCuenta, String nombrePropietario, String direccion, Banco banco) {
         this.tipoCuenta = tipoCuenta;
         this.nombrePropietario = nombrePropietario;
         this.direccion = direccion;
         this.saldo = 0;
+        this.banco = banco;
     }
 
     public void verBalance() {
@@ -26,6 +28,9 @@ public class Cuenta {
         return this.saldo;
     }
 
+    public boolean transferir(String receptor, int cantidad) {
+        return this.banco.transferir(this.nombrePropietario, receptor, cantidad);
+    }
     public void retirar(int cantidad) {
         this.saldo -= cantidad;
     }

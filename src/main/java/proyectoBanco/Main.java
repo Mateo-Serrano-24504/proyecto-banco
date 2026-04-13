@@ -1,36 +1,38 @@
-import proyectoBanco.*;
+package proyectoBanco;
 
 import proyectoBanco.administrador.Administrador;
 import proyectoBanco.comandos.ServicioComando;
 import proyectoBanco.cuentas.TipoCuenta;
 
-void main() {
-    var banco = new Banco();
-    var servicioComando = new ServicioComando();
-    var administrador = new Administrador(banco, servicioComando);
-    var servicioBanco = new ServicioBanco(banco);
+class Main {
+    public static void main(String[] args) {
+        var banco = new Banco();
+        var servicioComando = new ServicioComando();
+        var administrador = new Administrador(banco, servicioComando);
+        var servicioBanco = new ServicioBanco(banco);
 
-    banco.cambiarAdministrador(administrador);
+        banco.cambiarAdministrador(administrador);
 
-    var persona1 = new Persona("Mateo", "La Boca", servicioBanco);
-    var persona2 = new Persona("Carlos", "Tablada", servicioBanco);
+        var persona1 = new Persona("Mateo", "La Boca", servicioBanco);
+        var persona2 = new Persona("Carlos", "Tablada", servicioBanco);
 
-    persona1.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
-    persona2.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
+        persona1.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
+        persona2.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
 
-    administrador.procesarComandos();
+        administrador.procesarComandos();
 
-    persona1.actualizarCuenta();
-    persona2.actualizarCuenta();
+        persona1.actualizarCuenta();
+        persona2.actualizarCuenta();
 
-    persona1.verBalance();
-    persona2.verBalance();
+        persona1.verBalance();
+        persona2.verBalance();
 
-    persona1.cargarSaldo(100);
+        persona1.cargarSaldo(100);
 
-    persona1.transferir("Carlos", 200);
+        persona1.transferir("Carlos", 200);
 
-    System.out.println("\n\nLuego de la transferencia\n");
-    persona1.verBalance();
-    persona2.verBalance();
+        System.out.println("\n\nLuego de la transferencia\n");
+        persona1.verBalance();
+        persona2.verBalance();
+    }
 }

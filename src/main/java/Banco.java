@@ -43,6 +43,13 @@ public class Banco {
         }
     }
 
+    public void cargarSaldo(String nombrePropietario, int cantidad) {
+        var cuenta = this.obtenerPorUsuario(nombrePropietario);
+        if (cuenta == null) {
+            return;
+        }
+        cuenta.guardar(cantidad);
+    }
     public boolean transferir(String emisor, String receptor, int cantidad) {
         var cuentaEmisor = this.obtenerPorUsuario(emisor);
         var cuentaReceptor = this.obtenerPorUsuario(receptor);

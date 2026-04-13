@@ -55,6 +55,15 @@ public class Administrador {
             System.out.println("    - " + comando.toString());
         }
     }
+    public void manejarManejarPeticion(ComandoManejarPeticicon comandoRemoverPeticicon) {
+        var indice = comandoRemoverPeticicon.indicePeticion();
+        if (indice < 0 || indice >= this.peticionesPendientes.size()) {
+            return;
+        }
+        var comando = this.peticionesPendientes.get(indice);
+        this.peticionesPendientes.remove(indice);
+        comando.manejar(this);
+    }
 
     public void procesarComandos() {
         while (this.seguirProcesandoComandos) {

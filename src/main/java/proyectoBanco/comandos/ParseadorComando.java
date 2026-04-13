@@ -32,6 +32,10 @@ public class ParseadorComando {
     private ComandoListar parsearListar(String[] args) {
         return new ComandoListar();
     }
+    private ComandoManejarPeticicon parsearManejar(String[] args) {
+        var indice = Integer.parseInt(args[1]);
+        return new ComandoManejarPeticicon(indice);
+    }
 
     public Comando parsearComando(String linea) {
         var argumentos = linea.split(" ");
@@ -49,6 +53,9 @@ public class ParseadorComando {
             }
             case "listar" -> {
                 return this.parsearListar(argumentos);
+            }
+            case "manejar" -> {
+                return this.parsearManejar(argumentos);
             }
             default -> {
                 return null;

@@ -1,64 +1,34 @@
 package proyectoBanco;
 
-public class Banco {
-    private Cuenta primeraCuenta;
-    private Cuenta segundaCuenta;
+import java.util.HashMap;
 
-    private Cuenta obtenerPorUsuario(String usuario) {
-        if (
-                this.primeraCuenta != null &&
-                this.primeraCuenta.obtenerNombrePropietario().equals(usuario)
-        ) {
-            return this.primeraCuenta;
-        } else if (
-                this.segundaCuenta != null &&
-                        this.segundaCuenta.obtenerNombrePropietario().equals(usuario)
-        ) {
-            return this.segundaCuenta;
-        }
-        return null;
-    }
+public class Banco {
+    private HashMap<String, Cuenta> cuentas;
 
     public Banco() {
-        this.primeraCuenta = null;
-        this.segundaCuenta = null;
+        this.cuentas = new HashMap<>();
     }
 
     public Cuenta obtenerCuenta(String nombrePropietario) {
-        return this.obtenerPorUsuario(nombrePropietario);
+        return this.cuentas.get(nombrePropietario);
     }
 
     public void crearCuenta(TipoCuenta tipoCuenta, String nombrePropietario, String direccion) {
-        if (this.primeraCuenta == null) {
-            this.primeraCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion, this);
-        } else if (this.segundaCuenta == null) {
-            this.segundaCuenta = new Cuenta(tipoCuenta, nombrePropietario, direccion, this);
-        }
-    }
-    public void eliminarCuenta(String nombrePropietario) {
-        if (
-                this.primeraCuenta != null &&
-                this.primeraCuenta.obtenerNombrePropietario().equals(nombrePropietario)
-        ) {
-            this.primeraCuenta = null;
-        } else if (
-                this.segundaCuenta != null &&
-                this.segundaCuenta.obtenerNombrePropietario().equals(nombrePropietario)
-        ) {
-            this.segundaCuenta = null;
-        }
-    }
-
-    public void cargarSaldo(String nombrePropietario, int cantidad) {
-        var cuenta = this.obtenerPorUsuario(nombrePropietario);
-        if (cuenta == null) {
+        if (this.cuentas.containsKey(nombrePropietario)) {
             return;
         }
-        cuenta.guardar(cantidad);
+        this.cuentas.put(
+                nombrePropietario,
+                new Cuenta(tipoCuenta, nombrePropietario, direccion, this)
+        );
     }
+    public void eliminarCuenta(String nombrePropietario) {
+        this.cuentas.remove(nombrePropietario);
+    }
+
     public boolean transferir(String emisor, String receptor, int cantidad) {
-        var cuentaEmisor = this.obtenerPorUsuario(emisor);
-        var cuentaReceptor = this.obtenerPorUsuario(receptor);
+        var cuentaEmisor = this.cuentas.get(emisor);
+        var cuentaReceptor = this.cuentas.get(receptor);
         if (cuentaEmisor == null || cuentaReceptor == null) {
             return false;
         }
@@ -69,13 +39,5 @@ public class Banco {
         cuentaEmisor.retirar(cantidad);
         cuentaReceptor.guardar(cantidad);
         return true;
-    }
-
-    public void verBalance(String usuario) {
-        var cuenta = this.obtenerPorUsuario(usuario);
-        if (cuenta == null) {
-            return;
-        }
-        cuenta.verBalance();
     }
 }

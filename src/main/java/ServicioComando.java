@@ -8,6 +8,7 @@ public class ServicioComando {
     }
 
     public String obtenerComando() {
+        System.out.print("Ingrese comando:\n> ");
         return this.lector.nextLine();
     }
 }

@@ -2,6 +2,21 @@ public class Banco {
     Cuenta primeraCuenta;
     Cuenta segundaCuenta;
 
+    private Cuenta obtenerPorUsuario(String usuario) {
+        if (
+                this.primeraCuenta != null &&
+                this.primeraCuenta.obtenerNombrePropietario().equals(usuario)
+        ) {
+            return this.primeraCuenta;
+        } else if (
+                this.segundaCuenta != null &&
+                        this.segundaCuenta.obtenerNombrePropietario().equals(usuario)
+        ) {
+            return this.segundaCuenta;
+        }
+        return null;
+    }
+
     Banco() {
         this.primeraCuenta = null;
         this.segundaCuenta = null;
@@ -26,5 +41,20 @@ public class Banco {
         ) {
             this.segundaCuenta = null;
         }
+    }
+
+    public boolean transferir(String emisor, String receptor, int cantidad) {
+        var cuentaEmisor = this.obtenerPorUsuario(emisor);
+        var cuentaReceptor = this.obtenerPorUsuario(receptor);
+        if (cuentaEmisor == null || cuentaReceptor == null) {
+            return false;
+        }
+        var saldoEmisor = cuentaEmisor.obtenerSaldo();
+        if (saldoEmisor < cantidad) {
+            return false;
+        }
+        cuentaEmisor.retirar(cantidad);
+        cuentaReceptor.guardar(cantidad);
+        return true;
     }
 }

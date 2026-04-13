@@ -17,4 +17,11 @@ public class Cuenta {
     public int obtenerSaldo() {
         return this.saldo;
     }
+
+    public void retirar(int cantidad) {
+        this.saldo -= cantidad;
+    }
+    public void guardar(int cantidad) {
+        this.saldo += cantidad;
+    }
 }

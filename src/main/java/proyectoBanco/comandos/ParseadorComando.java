@@ -23,6 +23,9 @@ public class ParseadorComando {
     private ComandoSalir parsearSalir(String[] _args) {
         return new ComandoSalir();
     }
+    private ComandoListar parsearListar(String[] args) {
+        return new ComandoListar();
+    }
 
     public Comando parsearComando(String linea) {
         var argumentos = linea.split(" ");
@@ -37,6 +40,9 @@ public class ParseadorComando {
             }
             case "salir" -> {
                 return this.parsearSalir(argumentos);
+            }
+            case "listar" -> {
+                return this.parsearListar(argumentos);
             }
             default -> {
                 return null;

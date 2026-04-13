@@ -9,4 +9,12 @@ public record ComandoCrear(TipoCuenta tipoCuenta, String usuario, String direcci
     public void manejar(Administrador administrador) {
         administrador.manejarCrear(this);
     }
+
+    @Override
+    public String toString() {
+        return "ComandoCrear(" + this.tipoCuenta +
+                ", " + this.usuario +
+                ", " + this.direccion +
+                ")";
+    }
 }

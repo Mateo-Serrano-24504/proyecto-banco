@@ -8,4 +8,9 @@ public record ComandoEliminar(String usuario) implements Comando {
     public void manejar(Administrador administrador) {
         administrador.manejarEliminar(this);
     }
+
+    @Override
+    public String toString() {
+        return "ComandoEliminar(" + this.usuario + ")";
+    }
 }

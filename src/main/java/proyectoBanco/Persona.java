@@ -34,6 +34,9 @@ public class Persona {
         this.cuenta.guardar(cantidad);
     }
     public boolean transferir(String receptor, int cantidad) {
+        if (this.cuenta == null) {
+            return false;
+        }
         return this.cuenta.transferir(receptor, cantidad);
     }
     public void verBalance() {

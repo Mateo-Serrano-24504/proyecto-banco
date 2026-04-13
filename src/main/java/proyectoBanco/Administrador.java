@@ -37,14 +37,15 @@ public class Administrador {
     public void manejarSalir(ComandoSalir comandoSalir) {
         // Por ahora nada...
     }
+    public void manejarListar(ComandoListar comandoListar) {
+        System.out.println("Peticiones pendientes:");
+        for (var comando : this.peticionesPendientes) {
+            System.out.println("    - " + comando.toString());
+        }
+    }
 
     public void procesarComando() {
-        Comando comando;
-        if (this.peticionesPendientes.isEmpty()) {
-            comando = this.servicioComando.obtenerComando();
-        } else {
-            comando = this.peticionesPendientes.removeFirst();
-        }
+        var comando = this.servicioComando.obtenerComando();
         comando.manejar(this);
     }
 

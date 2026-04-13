@@ -2,14 +2,14 @@ package proyectoBanco.comandos;
 
 import proyectoBanco.Administrador;
 
-public class ComandoSalir implements Comando {
+public class ComandoListar implements Comando {
     @Override
     public void manejar(Administrador administrador) {
-        administrador.manejarSalir(this);
+        administrador.manejarListar(this);
     }
 
     @Override
     public String toString() {
-        return "ComandoSalir";
+        return "ComandoListar";
     }
 }

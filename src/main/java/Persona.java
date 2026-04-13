@@ -1,24 +1,33 @@
 public class Persona {
     private String nombreUsuario;
     private String direccion;
-    private Banco banco;
+    private ServicioBanco servicioBanco;
+    private Cuenta cuenta;
 
-    Persona(String nombreUsuario, String direccion, Banco banco) {
+    Persona(String nombreUsuario, String direccion, ServicioBanco servicioBanco) {
         this.nombreUsuario = nombreUsuario;
         this.direccion = direccion;
-        this.banco = banco;
+        this.servicioBanco = servicioBanco;
+        this.cuenta = servicioBanco.obtenerCuenta(this.nombreUsuario);
     }
 
-    public void crearCuenta(TipoCuenta tipoCuenta) {
-        this.banco.crearCuenta(tipoCuenta, this.nombreUsuario, this.direccion);
+    public void actualizarCuenta() {
+        this.cuenta = this.servicioBanco.obtenerCuenta(this.nombreUsuario);
     }
     public void cargarSaldo(int cantidad) {
-        this.banco.cargarSaldo(this.nombreUsuario, cantidad);
+        if (this.cuenta == null) {
+            return;
+        }
+        this.cuenta.guardar(cantidad);
     }
     public boolean transferir(String receptor, int cantidad) {
-        return this.banco.transferir(this.nombreUsuario, receptor, cantidad);
+        // return this.cuenta.transferir(receptor, cantidad);
+        return true;
     }
     public void verBalance() {
-        this.banco.verBalance(this.nombreUsuario);
+        if (this.cuenta == null) {
+            return;
+        }
+        this.cuenta.verBalance();
     }
 }

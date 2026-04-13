@@ -2,6 +2,7 @@ package proyectoBanco;
 
 import proyectoBanco.comandos.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Administrador {
@@ -20,6 +21,7 @@ public class Administrador {
     public Administrador(Banco banco, ServicioComando servicioComando) {
         this.banco = banco;
         this.servicioComando = servicioComando;
+        this.peticionesPendientes = new ArrayList<>();
     }
 
     public void manejarCrear(ComandoCrear comandoCrear) {

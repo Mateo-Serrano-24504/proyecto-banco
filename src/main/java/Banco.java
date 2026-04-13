@@ -1,6 +1,6 @@
 public class Banco {
-    Cuenta primeraCuenta;
-    Cuenta segundaCuenta;
+    private Cuenta primeraCuenta;
+    private Cuenta segundaCuenta;
 
     private Cuenta obtenerPorUsuario(String usuario) {
         if (

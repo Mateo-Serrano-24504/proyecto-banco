@@ -1,7 +1,7 @@
 package proyectoBanco;
 
 public class ServicioBanco {
-    private Banco banco;
+    private final Banco banco;
 
     public ServicioBanco(Banco banco) {
         this.banco = banco;

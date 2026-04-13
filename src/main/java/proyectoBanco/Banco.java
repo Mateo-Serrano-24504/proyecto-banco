@@ -3,7 +3,7 @@ package proyectoBanco;
 import java.util.HashMap;
 
 public class Banco {
-    private HashMap<String, Cuenta> cuentas;
+    private final HashMap<String, Cuenta> cuentas;
     private Administrador administrador;
 
     public Banco() {

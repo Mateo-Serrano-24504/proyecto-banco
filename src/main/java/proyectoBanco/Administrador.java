@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Administrador {
-    private Banco banco;
-    private ServicioComando servicioComando;
-    private List<Comando> peticionesPendientes;
+    private final Banco banco;
+    private final ServicioComando servicioComando;
+    private final List<Comando> peticionesPendientes;
     private boolean seguirProcesandoComandos;
 
     private void crearCuenta(TipoCuenta tipoCuenta, String usuario, String direccion) {
@@ -41,10 +41,10 @@ public class Administrador {
     public void manejarEliminar(ComandoEliminar comandoEliminar) {
         this.eliminarCuenta(comandoEliminar.usuario());
     }
-    public void manejarSalir(ComandoSalir comandoSalir) {
+    public void manejarSalir(ComandoSalir _comandoSalir) {
         this.seguirProcesandoComandos = false;
     }
-    public void manejarListar(ComandoListar comandoListar) {
+    public void manejarListar(ComandoListar _comandoListar) {
         System.out.println("Peticiones pendientes:");
         for (var comando : this.peticionesPendientes) {
             System.out.println("    - " + comando.toString());

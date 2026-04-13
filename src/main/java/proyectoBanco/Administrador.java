@@ -64,6 +64,11 @@ public class Administrador {
         this.peticionesPendientes.remove(indice);
         comando.manejar(this);
     }
+    public void manejarManejarTodos(ComandoManejarTodos _comandoManejarTodos) {
+        while (!this.peticionesPendientes.isEmpty()) {
+            this.peticionesPendientes.removeFirst().manejar(this);
+        }
+    }
 
     public void procesarComandos() {
         while (this.seguirProcesandoComandos) {

@@ -32,7 +32,10 @@ public class ParseadorComando {
     private ComandoListar parsearListar(String[] args) {
         return new ComandoListar();
     }
-    private ComandoManejarPeticicon parsearManejar(String[] args) {
+    private Comando parsearManejar(String[] args) {
+        if (args.length == 1) {
+            return new ComandoManejarTodos();
+        }
         var indice = Integer.parseInt(args[1]);
         return new ComandoManejarPeticicon(indice);
     }

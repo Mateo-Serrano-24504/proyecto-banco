@@ -16,8 +16,7 @@ void main() {
     persona1.solicitarCrearCuenta();
     persona2.solicitarCrearCuenta();
 
-    administrador.procesarComando(); // Crear cuenta de Mateo
-    administrador.procesarComando(); // Crear cuenta de Carlos
+    administrador.procesarComandos();
 
     persona1.actualizarCuenta();
     persona2.actualizarCuenta();

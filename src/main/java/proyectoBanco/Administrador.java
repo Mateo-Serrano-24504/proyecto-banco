@@ -9,6 +9,7 @@ public class Administrador {
     private Banco banco;
     private ServicioComando servicioComando;
     private List<Comando> peticionesPendientes;
+    private boolean seguirProcesandoComandos;
 
     private void crearCuenta(TipoCuenta tipoCuenta, String usuario, String direccion) {
         this.banco.crearCuenta(tipoCuenta, usuario, direccion);
@@ -18,10 +19,16 @@ public class Administrador {
         this.banco.eliminarCuenta(usuario);
     }
 
+    private void procesarComando() {
+        var comando = this.servicioComando.obtenerComando();
+        comando.manejar(this);
+    }
+
     public Administrador(Banco banco, ServicioComando servicioComando) {
         this.banco = banco;
         this.servicioComando = servicioComando;
         this.peticionesPendientes = new ArrayList<>();
+        this.seguirProcesandoComandos = true;
     }
 
     public void manejarCrear(ComandoCrear comandoCrear) {
@@ -35,7 +42,7 @@ public class Administrador {
         this.eliminarCuenta(comandoEliminar.usuario());
     }
     public void manejarSalir(ComandoSalir comandoSalir) {
-        // Por ahora nada...
+        this.seguirProcesandoComandos = false;
     }
     public void manejarListar(ComandoListar comandoListar) {
         System.out.println("Peticiones pendientes:");
@@ -44,9 +51,10 @@ public class Administrador {
         }
     }
 
-    public void procesarComando() {
-        var comando = this.servicioComando.obtenerComando();
-        comando.manejar(this);
+    public void procesarComandos() {
+        while (this.seguirProcesandoComandos) {
+            this.procesarComando();
+        }
     }
 
     public void solicitarCrearCuenta(TipoCuenta tipoCuenta, String usuario, String direccion) {

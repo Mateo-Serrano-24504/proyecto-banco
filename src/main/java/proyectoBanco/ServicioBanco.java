@@ -1,5 +1,8 @@
 package proyectoBanco;
 
+import proyectoBanco.cuentas.Cuenta;
+import proyectoBanco.cuentas.TipoCuenta;
+
 public class ServicioBanco {
     private final Banco banco;
 
@@ -10,8 +13,8 @@ public class ServicioBanco {
     public Cuenta obtenerCuenta(String nombrePropietario) {
         return this.banco.obtenerCuenta(nombrePropietario);
     }
-    public void solicitarCrearCuenta(TipoCuenta tipoCuenta, String nombre, String direccion) {
-        this.banco.solicitarCrearCuenta(tipoCuenta, nombre, direccion);
+    public void solicitarCrearCuenta(TipoCuenta tipoCuenta, String nombre) {
+        this.banco.solicitarCrearCuenta(tipoCuenta, nombre);
     }
     public void solicitarEliminarCuenta(String nombre) {
         this.banco.solicitarEliminarCuenta(nombre);

@@ -1,6 +1,7 @@
 import proyectoBanco.*;
 
 import proyectoBanco.comandos.ServicioComando;
+import proyectoBanco.cuentas.TipoCuenta;
 
 void main() {
     var banco = new Banco();
@@ -13,8 +14,8 @@ void main() {
     var persona1 = new Persona("Mateo", "La Boca", servicioBanco);
     var persona2 = new Persona("Carlos", "Tablada", servicioBanco);
 
-    persona1.solicitarCrearCuenta();
-    persona2.solicitarCrearCuenta();
+    persona1.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
+    persona2.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
 
     administrador.procesarComandos();
 
@@ -24,9 +25,9 @@ void main() {
     persona1.verBalance();
     persona2.verBalance();
 
-    persona1.cargarSaldo(1000);
+    persona1.cargarSaldo(100);
 
-    persona1.transferir("Carlos", 100);
+    persona1.transferir("Carlos", 200);
 
     System.out.println("\n\nLuego de la transferencia\n");
     persona1.verBalance();

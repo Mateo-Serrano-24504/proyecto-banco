@@ -1,20 +1,26 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.TipoCuenta;
+import proyectoBanco.cuentas.TipoCuenta;
 
 public class ParseadorComando {
     private TipoCuenta obtenerTipoCuenta(String tipoCuenta) {
-        if (tipoCuenta.equals("corriente")) {
-            return TipoCuenta.CuentaCorriente;
+        switch (tipoCuenta) {
+            case "corriente" -> {
+                return TipoCuenta.CuentaCorriente;
+            }
+            case "ahorro" -> {
+                return TipoCuenta.CuentaAhorro;
+            }
+            default -> {
+                return null;
+            }
         }
-        return null;
     }
 
     private ComandoCrear parsearCrear(String[] args) {
         return new ComandoCrear(
                 this.obtenerTipoCuenta(args[1]),
-                args[2],
-                args[3]
+                args[2]
         );
     }
     private ComandoEliminar parsearEliminar(String[] args) {

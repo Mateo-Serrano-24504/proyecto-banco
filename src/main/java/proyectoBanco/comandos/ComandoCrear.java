@@ -1,9 +1,9 @@
 package proyectoBanco.comandos;
 
 import proyectoBanco.Administrador;
-import proyectoBanco.TipoCuenta;
+import proyectoBanco.cuentas.TipoCuenta;
 
-public record ComandoCrear(TipoCuenta tipoCuenta, String usuario, String direccion) implements Comando {
+public record ComandoCrear(TipoCuenta tipoCuenta, String usuario) implements Comando {
 
     @Override
     public void manejar(Administrador administrador) {
@@ -14,7 +14,6 @@ public record ComandoCrear(TipoCuenta tipoCuenta, String usuario, String direcci
     public String toString() {
         return "ComandoCrear(" + this.tipoCuenta +
                 ", " + this.usuario +
-                ", " + this.direccion +
                 ")";
     }
 }

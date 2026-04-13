@@ -1,5 +1,8 @@
 package proyectoBanco;
 
+import proyectoBanco.cuentas.Cuenta;
+import proyectoBanco.cuentas.TipoCuenta;
+
 public class Persona {
     private final String nombreUsuario;
     private final String direccion;
@@ -13,11 +16,10 @@ public class Persona {
         this.cuenta = servicioBanco.obtenerCuenta(this.nombreUsuario);
     }
 
-    public void solicitarCrearCuenta() {
+    public void solicitarCrearCuenta(TipoCuenta tipoCuenta) {
         this.servicioBanco.solicitarCrearCuenta(
-                TipoCuenta.CuentaCorriente,
-                this.nombreUsuario,
-                this.direccion
+                tipoCuenta,
+                this.nombreUsuario
         );
     }
     public void solicitarEliminarCuenta() {
@@ -31,7 +33,7 @@ public class Persona {
         if (this.cuenta == null) {
             return;
         }
-        this.cuenta.guardar(cantidad);
+        this.cuenta.depositar(cantidad);
     }
     public boolean transferir(String receptor, int cantidad) {
         if (this.cuenta == null) {

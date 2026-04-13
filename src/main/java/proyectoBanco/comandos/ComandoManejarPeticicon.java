@@ -1,11 +1,11 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.Administrador;
+import proyectoBanco.administrador.Manejador;
 
 public record ComandoManejarPeticicon(int indicePeticion) implements Comando {
 
     @Override
-    public void manejar(Administrador administrador) {
-        administrador.manejarManejarPeticion(this);
+    public void manejar(Manejador manejador) {
+        manejador.manejarManejarPeticion(this);
     }
 }

@@ -1,12 +1,12 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.Administrador;
+import proyectoBanco.administrador.Manejador;
 
 public record ComandoEliminar(String usuario) implements Comando {
 
     @Override
-    public void manejar(Administrador administrador) {
-        administrador.manejarEliminar(this);
+    public void manejar(Manejador manejador) {
+        manejador.manejarEliminar(this);
     }
 
     @Override

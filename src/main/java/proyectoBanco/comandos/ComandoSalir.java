@@ -1,11 +1,11 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.Administrador;
+import proyectoBanco.administrador.Manejador;
 
 public class ComandoSalir implements Comando {
     @Override
-    public void manejar(Administrador administrador) {
-        administrador.manejarSalir(this);
+    public void manejar(Manejador manejador) {
+        manejador.manejarSalir(this);
     }
 
     @Override

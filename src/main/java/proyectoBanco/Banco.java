@@ -1,5 +1,6 @@
 package proyectoBanco;
 
+import proyectoBanco.administrador.Administrador;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.CuentaAhorro;
 import proyectoBanco.cuentas.CuentaCorriente;

@@ -1,13 +1,13 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.Administrador;
+import proyectoBanco.administrador.Manejador;
 import proyectoBanco.cuentas.TipoCuenta;
 
 public record ComandoCrear(TipoCuenta tipoCuenta, String usuario) implements Comando {
 
     @Override
-    public void manejar(Administrador administrador) {
-        administrador.manejarCrear(this);
+    public void manejar(Manejador manejador) {
+        manejador.manejarCrear(this);
     }
 
     @Override

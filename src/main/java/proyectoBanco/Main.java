@@ -1,5 +1,6 @@
 import proyectoBanco.*;
 
+import proyectoBanco.administrador.Administrador;
 import proyectoBanco.comandos.ServicioComando;
 import proyectoBanco.cuentas.TipoCuenta;
 

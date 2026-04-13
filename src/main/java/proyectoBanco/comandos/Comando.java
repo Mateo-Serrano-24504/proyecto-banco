@@ -1,7 +1,7 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.Administrador;
+import proyectoBanco.administrador.Manejador;
 
 public interface Comando {
-    void manejar(Administrador administrador);
+    void manejar(Manejador manejador);
 }

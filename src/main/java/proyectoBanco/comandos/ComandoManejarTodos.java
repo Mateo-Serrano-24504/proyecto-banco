@@ -1,10 +1,10 @@
 package proyectoBanco.comandos;
 
-import proyectoBanco.Administrador;
+import proyectoBanco.administrador.Manejador;
 
 public class ComandoManejarTodos implements Comando {
     @Override
-    public void manejar(Administrador administrador) {
-        administrador.manejarManejarTodos(this);
+    public void manejar(Manejador manejador) {
+        manejador.manejarManejarTodos(this);
     }
 }

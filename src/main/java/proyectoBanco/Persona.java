@@ -1,9 +1,9 @@
 package proyectoBanco;
 
 public class Persona {
-    private String nombreUsuario;
-    private String direccion;
-    private ServicioBanco servicioBanco;
+    private final String nombreUsuario;
+    private final String direccion;
+    private final ServicioBanco servicioBanco;
     private Cuenta cuenta;
 
     public Persona(String nombreUsuario, String direccion, ServicioBanco servicioBanco) {

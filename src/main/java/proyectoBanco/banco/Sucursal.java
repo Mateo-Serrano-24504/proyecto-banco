@@ -10,11 +10,13 @@ public class Sucursal {
     private final CreadorCuenta creadorCuenta;
     private final HashMap<String, Cuenta> cuentasActivas;
     private Administrador administrador;
+    private GestorRoles gestorRoles;
 
     public Sucursal(CreadorCuenta creadorCuenta) {
         this.creadorCuenta = creadorCuenta;
         this.cuentasActivas = new HashMap<>();
         this.administrador = null;
+        this.gestorRoles = new GestorRoles();
     }
 
     public void cambiarAdministrador(Administrador administrador) {

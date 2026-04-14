@@ -1,15 +1,11 @@
 package proyectoBanco.cuentas;
 
-import proyectoBanco.Banco;
-
 public class CuentaCorriente extends Cuenta {
-    private final Banco banco;
     private final double interesPorGiro;
 
-    public CuentaCorriente(String propietario, Banco banco) {
+    public CuentaCorriente(String propietario) {
         super.propietario = propietario;
         super.saldo = 0;
-        this.banco = banco;
         this.interesPorGiro = 1.5;
     }
 
@@ -35,10 +31,5 @@ public class CuentaCorriente extends Cuenta {
         this.saldo -= cantidad;
         this.saldo = (int) Math.floor(this.saldo * this.interesPorGiro);
         return true;
-    }
-
-    @Override
-    public boolean transferir(String receptor, int cantidad) {
-        return this.banco.transferir(super.propietario, receptor, cantidad);
     }
 }

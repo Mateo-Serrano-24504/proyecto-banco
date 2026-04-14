@@ -1,14 +1,9 @@
 package proyectoBanco.cuentas;
 
-import proyectoBanco.Banco;
-
 public class CuentaAhorro extends Cuenta {
-    private final Banco banco;
-
-    public CuentaAhorro(String propietario, Banco banco) {
+    public CuentaAhorro(String propietario) {
         super.propietario = propietario;
         super.saldo = 0;
-        this.banco = banco;
     }
 
     @Override
@@ -32,10 +27,5 @@ public class CuentaAhorro extends Cuenta {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean transferir(String receptor, int cantidad) {
-        return this.banco.transferir(super.propietario, receptor, cantidad);
     }
 }

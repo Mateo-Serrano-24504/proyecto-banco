@@ -11,10 +11,10 @@ public class Sucursal {
     private final HashMap<String, Cuenta> cuentasActivas;
     private Administrador administrador;
 
-    public Sucursal(Administrador administrador, CreadorCuenta creadorCuenta) {
+    public Sucursal(CreadorCuenta creadorCuenta) {
         this.creadorCuenta = creadorCuenta;
         this.cuentasActivas = new HashMap<>();
-        this.administrador = administrador;
+        this.administrador = null;
     }
 
     public void cambiarAdministrador(Administrador administrador) {
@@ -26,16 +26,16 @@ public class Sucursal {
     }
 
     public void solicitarCrearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
-        administrador.solicitarCrearCuenta(tipoCuenta, credenciales.usuario());
+        administrador.solicitarCrearCuenta(tipoCuenta, credenciales);
     }
     public void solicitarEliminarCuenta(CredencialesUsuario credenciales) {
-        administrador.solicitarEliminarCuenta(credenciales.usuario());
+        administrador.solicitarEliminarCuenta(credenciales);
     }
 
-//    public void crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
-//        var cuenta = this.creadorCuenta.crearCuenta(tipoCuenta, credenciales.usuario(), this);
-//        this.cuentasActivas.put(credenciales.usuario(), cuenta);
-//    }
+    public void crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
+        var cuenta = this.creadorCuenta.crearCuenta(tipoCuenta, credenciales.usuario());
+        this.cuentasActivas.put(credenciales.usuario(), cuenta);
+    }
     public void eliminarCuenta(CredencialesUsuario credenciales) {
         this.cuentasActivas.remove(credenciales.usuario());
     }

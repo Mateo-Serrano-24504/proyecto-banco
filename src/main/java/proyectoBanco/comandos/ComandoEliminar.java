@@ -2,7 +2,7 @@ package proyectoBanco.comandos;
 
 import proyectoBanco.administrador.Manejador;
 
-public record ComandoEliminar(String usuario) implements Comando {
+public record ComandoEliminar(String usuario, String contr) implements Comando {
 
     @Override
     public void manejar(Manejador manejador) {
@@ -11,6 +11,9 @@ public record ComandoEliminar(String usuario) implements Comando {
 
     @Override
     public String toString() {
-        return "ComandoEliminar(" + this.usuario + ")";
+        return "ComandoEliminar(" +
+                this.usuario +
+                ", " + this.contr +
+                ")";
     }
 }

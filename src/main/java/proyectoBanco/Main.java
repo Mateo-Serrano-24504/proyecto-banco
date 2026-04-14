@@ -1,38 +1,47 @@
 package proyectoBanco;
 
 import proyectoBanco.administrador.Administrador;
+import proyectoBanco.banco.Sucursal;
 import proyectoBanco.comandos.ServicioComando;
+import proyectoBanco.cuentas.CreadorCuenta;
 import proyectoBanco.cuentas.TipoCuenta;
+import proyectoBanco.banco.ServicioBanco;
+import proyectoBanco.usuarios.PerfilUsuario;
+import proyectoBanco.usuarios.Usuario;
 
 class Main {
     public static void main(String[] args) {
-        var banco = new Banco();
+        var creadorCuenta = new CreadorCuenta();
+        var sucursal = new Sucursal(creadorCuenta);
         var servicioComando = new ServicioComando();
-        var administrador = new Administrador(banco, servicioComando);
-        var servicioBanco = new ServicioBanco(banco);
+        var administrador = new Administrador(sucursal, servicioComando);
+        var servicioBanco = new ServicioBanco(sucursal);
 
-        banco.cambiarAdministrador(administrador);
+        sucursal.cambiarAdministrador(administrador);
 
-        var persona1 = new Persona("Mateo", servicioBanco);
-        var persona2 = new Persona("Carlos", servicioBanco);
+        var perfil1 = new PerfilUsuario("Mateo", "1234seguro", "hoy");
+        var perfil2 = new PerfilUsuario("Carlos", "000noseguro", "ayer");
 
-        persona1.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
-        persona2.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
+        var usuario1 = new Usuario(perfil1, servicioBanco);
+        var usuario2 = new Usuario(perfil2, servicioBanco);
+
+        usuario1.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
+        usuario2.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
 
         administrador.procesarComandos();
 
-        persona1.actualizarCuenta();
-        persona2.actualizarCuenta();
+        usuario1.actualizarCuenta();
+        usuario2.actualizarCuenta();
 
-        persona1.verBalance();
-        persona2.verBalance();
+        usuario1.verEstadoCuenta();
+        usuario2.verEstadoCuenta();
 
-        persona1.cargarSaldo(100);
+        usuario1.depositar(100);
 
-        persona1.transferir("Carlos", 200);
+        usuario1.transferir("Carlos", 200);
 
         System.out.println("\n\nLuego de la transferencia\n");
-        persona1.verBalance();
-        persona2.verBalance();
+        usuario1.verEstadoCuenta();
+        usuario2.verEstadoCuenta();
     }
 }

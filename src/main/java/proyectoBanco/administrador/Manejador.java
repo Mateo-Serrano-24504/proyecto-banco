@@ -1,6 +1,7 @@
 package proyectoBanco.administrador;
 
 import proyectoBanco.comandos.*;
+import proyectoBanco.usuarios.CredencialesUsuario;
 
 import java.util.List;
 
@@ -14,10 +15,21 @@ public class Manejador {
     }
 
     public void manejarCrear(ComandoCrear comandoCrear) {
-        this.administrador.crearCuenta(comandoCrear.tipoCuenta(), comandoCrear.usuario());
+        this.administrador.crearCuenta(
+                comandoCrear.tipoCuenta(),
+                new CredencialesUsuario(
+                        comandoCrear.usuario(),
+                        comandoCrear.contr()
+                )
+        );
     }
     public void manejarEliminar(ComandoEliminar comandoEliminar) {
-        this.administrador.eliminarCuenta(comandoEliminar.usuario());
+        this.administrador.eliminarCuenta(
+                new CredencialesUsuario(
+                        comandoEliminar.usuario(),
+                        comandoEliminar.contr()
+                )
+        );
     }
     public void manejarSalir(ComandoSalir _comandoSalir) {
         this.administrador.dejarDeManejar();

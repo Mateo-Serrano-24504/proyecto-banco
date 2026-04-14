@@ -1,22 +1,20 @@
 package proyectoBanco.cuentas;
 
-import proyectoBanco.Banco;
-
 public class CreadorCuenta {
-    private CuentaCorriente crearCuentaCorriente(String propietario, Banco banco) {
-        return new CuentaCorriente(propietario, banco);
+    private CuentaCorriente crearCuentaCorriente(String propietario) {
+        return new CuentaCorriente(propietario);
     }
-    private CuentaAhorro crearCuentaAhorro(String propietario, Banco banco) {
-        return new CuentaAhorro(propietario, banco);
+    private CuentaAhorro crearCuentaAhorro(String propietario) {
+        return new CuentaAhorro(propietario);
     }
 
-    public Cuenta crearCuenta(TipoCuenta tipoCuenta, String propietario, Banco banco) {
+    public Cuenta crearCuenta(TipoCuenta tipoCuenta, String propietario) {
         switch (tipoCuenta) {
             case CuentaCorriente -> {
-                return this.crearCuentaCorriente(propietario, banco);
+                return this.crearCuentaCorriente(propietario);
             }
             case CuentaAhorro -> {
-                return this.crearCuentaAhorro(propietario, banco);
+                return this.crearCuentaAhorro(propietario);
             }
             default -> {
                 return null;

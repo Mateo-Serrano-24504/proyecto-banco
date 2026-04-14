@@ -20,11 +20,12 @@ public class ParseadorComando {
     private ComandoCrear parsearCrear(String[] args) {
         return new ComandoCrear(
                 this.obtenerTipoCuenta(args[1]),
-                args[2]
+                args[2],
+                args[3]
         );
     }
     private ComandoEliminar parsearEliminar(String[] args) {
-        return new ComandoEliminar(args[1]);
+        return new ComandoEliminar(args[1], args[2]);
     }
     private ComandoSalir parsearSalir(String[] _args) {
         return new ComandoSalir();

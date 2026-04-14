@@ -1,14 +1,15 @@
 package proyectoBanco.administrador;
 
-import proyectoBanco.Banco;
+import proyectoBanco.banco.Sucursal;
 import proyectoBanco.comandos.*;
 import proyectoBanco.cuentas.TipoCuenta;
+import proyectoBanco.usuarios.CredencialesUsuario;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Administrador {
-    private final Banco banco;
+    private final Sucursal sucursal;
     private final ServicioComando servicioComando;
     private final List<Comando> peticionesPendientes;
     private boolean seguirProcesandoComandos;
@@ -22,27 +23,19 @@ public class Administrador {
         comando.manejar(this.manejador);
     }
 
-    public Administrador(Banco banco, ServicioComando servicioComando) {
-        this.banco = banco;
+    public Administrador(Sucursal sucursal, ServicioComando servicioComando) {
+        this.sucursal = sucursal;
         this.servicioComando = servicioComando;
         this.peticionesPendientes = new ArrayList<>();
         this.seguirProcesandoComandos = true;
         this.manejador = new Manejador(this, this.peticionesPendientes);
     }
 
-    public void crearCuenta(TipoCuenta tipoCuenta, String usuario) {
-        switch (tipoCuenta) {
-            case TipoCuenta.CuentaCorriente -> {
-                this.banco.crearCuentaCorriente(usuario);
-            }
-            case TipoCuenta.CuentaAhorro -> {
-                this.banco.crearCuentaAhorro(usuario);
-            }
-            default -> { /* Simplemente se saltea */ }
-        }
+    public void crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
+        this.sucursal.crearCuenta(tipoCuenta, credenciales);
     }
-    public void eliminarCuenta(String usuario) {
-        this.banco.eliminarCuenta(usuario);
+    public void eliminarCuenta(CredencialesUsuario credenciales) {
+        this.sucursal.eliminarCuenta(credenciales);
     }
 
     public void procesarComandos() {
@@ -54,14 +47,18 @@ public class Administrador {
         this.seguirProcesandoComandos = false;
     }
 
-    public void solicitarCrearCuenta(TipoCuenta tipoCuenta, String usuario) {
+    public void solicitarCrearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
         this.peticionesPendientes.add(
-                new ComandoCrear(tipoCuenta, usuario)
+                new ComandoCrear(
+                        tipoCuenta,
+                        credenciales.usuario(),
+                        credenciales.contr()
+                )
         );
     }
-    public void solicitarEliminarCuenta(String usuario) {
+    public void solicitarEliminarCuenta(CredencialesUsuario credenciales) {
         this.peticionesPendientes.add(
-                new ComandoEliminar(usuario)
+                new ComandoEliminar(credenciales.usuario(), credenciales.contr())
         );
     }
 }

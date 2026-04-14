@@ -33,7 +33,7 @@ public class ServicioBanco {
         return true;
     }
     public boolean eliminarCuenta(CredencialesUsuario credencialesUsuario) {
-        if (this.credencialesInvalidas(credencialesUsuario)) return false;
+        if (this.gestorUsuarios.eliminarRolDeUsuarioSiExiste(credencialesUsuario, RolUsuario.Cliente)) return false;
         this.sucursal.eliminarCuenta(credencialesUsuario);
         return true;
     }

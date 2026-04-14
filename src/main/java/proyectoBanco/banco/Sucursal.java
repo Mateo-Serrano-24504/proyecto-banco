@@ -19,11 +19,11 @@ public class Sucursal {
     public Cuenta obtenerEstadoCuenta(CredencialesUsuario credenciales) {
         return this.gestorCuentas.obtenerCuenta(credenciales.usuario());
     }
-    public boolean crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
-        return this.gestorCuentas.crearCuenta(credenciales.usuario(), tipoCuenta);
+    public void crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
+        this.gestorCuentas.solicitarCrearCuenta(credenciales.usuario(), tipoCuenta);
     }
-    public boolean eliminarCuenta(CredencialesUsuario credenciales) {
-        return this.gestorCuentas.eliminarCuenta(credenciales.usuario());
+    public void eliminarCuenta(CredencialesUsuario credenciales) {
+        this.gestorCuentas.solicitarEliminarCuenta(credenciales.usuario());
     }
     public boolean depositar(CredencialesUsuario credenciales, int cantidad) {
         return this.gestorTransacciones.manejarDeposito(credenciales.usuario(), cantidad);

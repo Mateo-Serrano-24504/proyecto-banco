@@ -1,19 +1,16 @@
-package proyectoBanco.usuarios;
+package proyectoBanco.banco;
 
-import proyectoBanco.banco.ServicioBanco;
 import proyectoBanco.cuentas.Cuenta;
+import proyectoBanco.usuarios.CredencialesUsuario;
 
 import java.util.HashMap;
 
-public class GestorTransacciones extends Usuario {
+public class GestorTransacciones {
     private HashMap<String, Cuenta> cuentas;
 
     public GestorTransacciones(
-            ServicioBanco servicioBanco,
-            CredencialesUsuario credencialesUsuario,
             HashMap<String, Cuenta> cuentas
     ) {
-        super(servicioBanco, credencialesUsuario);
         this.cuentas = cuentas;
     }
 

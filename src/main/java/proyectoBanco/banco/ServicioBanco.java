@@ -8,6 +8,7 @@ import proyectoBanco.usuarios.RolUsuario;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ServicioBanco {
     private final Sucursal sucursal;
@@ -22,11 +23,15 @@ public class ServicioBanco {
         this.gestorUsuarios = gestorUsuarios;
     }
 
+    public boolean crearUsuario(PerfilUsuario perfilUsuario, Set<RolUsuario> roles) {
+        return this.gestorUsuarios.agregarUsuarioSiNoExiste(perfilUsuario, roles);
+    }
+
     // Operaciones de cliente
     public boolean crearCuenta(PerfilUsuario perfilUsuario, TipoCuenta tipoCuenta) {
         var roles = new HashSet<RolUsuario>();
         roles.add(RolUsuario.Cliente);
-        if (this.gestorUsuarios.agregarUsuarioSiNoExiste(perfilUsuario, roles)) {
+        if (!this.gestorUsuarios.agregarUsuarioSiNoExiste(perfilUsuario, roles)) {
             return false;
         }
         this.sucursal.crearCuenta(tipoCuenta, perfilUsuario.generarCredenciales());

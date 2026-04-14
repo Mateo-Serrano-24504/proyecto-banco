@@ -2,7 +2,6 @@ package proyectoBanco.comandos;
 
 import proyectoBanco.administrador.Manejador;
 import proyectoBanco.cuentas.TipoCuenta;
-import proyectoBanco.usuarios.CredencialesUsuario;
 
 public record ComandoCrear(TipoCuenta tipoCuenta, String usuario, String contr) implements Comando {
 

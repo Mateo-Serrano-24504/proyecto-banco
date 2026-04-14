@@ -1,6 +1,5 @@
 package proyectoBanco.banco;
 
-import proyectoBanco.usuarios.CredencialesUsuario;
 import proyectoBanco.usuarios.RolUsuario;
 
 import java.util.HashMap;

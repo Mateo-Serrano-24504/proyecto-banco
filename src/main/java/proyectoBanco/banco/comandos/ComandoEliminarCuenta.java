@@ -1,7 +1,6 @@
 package proyectoBanco.banco.comandos;
 
 import proyectoBanco.banco.GestorCuentas;
-import proyectoBanco.cuentas.TipoCuenta;
 
 public class ComandoEliminarCuenta implements Comando {
     private final GestorCuentas gestorCuentas;

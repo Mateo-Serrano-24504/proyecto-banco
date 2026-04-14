@@ -2,7 +2,6 @@ package proyectoBanco.banco.comandos;
 
 import proyectoBanco.banco.GestorCuentas;
 import proyectoBanco.cuentas.TipoCuenta;
-import proyectoBanco.usuarios.CredencialesUsuario;
 
 public class ComandoCrearCuenta implements Comando {
     private final GestorCuentas gestorCuentas;

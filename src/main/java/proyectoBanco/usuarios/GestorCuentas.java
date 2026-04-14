@@ -1,25 +1,39 @@
 package proyectoBanco.usuarios;
 
 import proyectoBanco.banco.ServicioBanco;
+import proyectoBanco.cuentas.CreadorCuenta;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.CuentaCorriente;
+import proyectoBanco.cuentas.TipoCuenta;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class GestorCuentas extends Usuario {
-    private final List<Cuenta> perfileslUsuarios;
+    private final HashMap<CredencialesUsuario, Cuenta> cuentas;
+    private final CreadorCuenta creadorCuenta;
 
     public GestorCuentas(
             ServicioBanco servicioBanco,
-            CredencialesUsuario credencialesUsuario
+            CredencialesUsuario credencialesUsuario,
+            CreadorCuenta creadorCuenta
     ) {
         super(servicioBanco, credencialesUsuario);
-        this.perfileslUsuarios = new ArrayList<>();
+        this.cuentas = new HashMap<>();
+        this.creadorCuenta = creadorCuenta;
     }
 
-    public boolean crearCuenta() {
-        return false;
+    public boolean crearCuenta(CredencialesUsuario credencialesUsuario, TipoCuenta tipoCuenta) {
+        if (this.cuentas.containsKey(credencialesUsuario)) {
+            return false;
+        }
+        this.cuentas.put(
+                credencialesUsuario,
+                this.creadorCuenta.crearCuenta(
+                        tipoCuenta,
+                        credencialesUsuario.usuario()
+                )
+        );
+        return true;
     }
     public boolean eliminarCuenta() {
         return false;

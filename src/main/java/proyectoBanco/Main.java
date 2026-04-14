@@ -11,6 +11,7 @@ import proyectoBanco.usuarios.Usuario;
 
 class Main {
     public static void main(String[] args) {
+        /*
         var creadorCuenta = new CreadorCuenta();
         var sucursal = new Sucursal(creadorCuenta);
         var servicioComando = new ServicioComando();
@@ -43,5 +44,6 @@ class Main {
         System.out.println("\n\nLuego de la transferencia\n");
         usuario1.verEstadoCuenta();
         usuario2.verEstadoCuenta();
+         */
     }
 }

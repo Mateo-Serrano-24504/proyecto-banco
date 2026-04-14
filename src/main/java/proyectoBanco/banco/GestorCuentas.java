@@ -7,13 +7,12 @@ import proyectoBanco.cuentas.CreadorCuenta;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public class GestorCuentas  {
     private final HashMap<String, Cuenta> cuentas;
     private final CreadorCuenta creadorCuenta;
-    private final HashSet<Comando> tareasPendientes;
+    private final List<Comando> tareasPendientes;
 
     public GestorCuentas(
             HashMap<String, Cuenta> cuentas,
@@ -21,7 +20,7 @@ public class GestorCuentas  {
     ) {
         this.cuentas = cuentas;
         this.creadorCuenta = creadorCuenta;
-        this.tareasPendientes = new HashSet<>();
+        this.tareasPendientes = new ArrayList<>();
     }
 
     public void solicitarCrearCuenta(String usuario, TipoCuenta tipoCuenta) {
@@ -31,6 +30,7 @@ public class GestorCuentas  {
         this.tareasPendientes.add(new ComandoEliminarCuenta(this,usuario));
     }
 
+    // Operaciones de cuenta
     public boolean crearCuenta(String usuario, TipoCuenta tipoCuenta) {
         if (this.cuentas.containsKey(usuario)) {
             return false;
@@ -53,5 +53,20 @@ public class GestorCuentas  {
     }
     public Cuenta obtenerCuenta(String usuario) {
         return this.cuentas.get(usuario);
+    }
+
+    // Operaciones de administrador
+    public List<String> obtenerVistaOperacionesPendientes() {
+        return this.tareasPendientes
+                .stream()
+                .map(Comando::toString)
+                .toList();
+    }
+    public void resolverOperacion(int indice) {
+        if (indice < 0 || indice > this.tareasPendientes.size()) {
+            return;
+        }
+        var comando = this.tareasPendientes.removeFirst();
+        comando.ejecutar();
     }
 }

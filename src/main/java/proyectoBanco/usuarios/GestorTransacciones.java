@@ -22,7 +22,12 @@ public class GestorTransacciones extends Usuario {
         return true;
     }
     public boolean manejarRetiro(CredencialesUsuario credencialesUsuario, int saldo) {
-        return false;
+        var cuenta = this.cuentas.get(credencialesUsuario);
+        if (cuenta == null) {
+            return false;
+        }
+        cuenta.retirar(saldo);
+        return true;
     }
     public boolean manejarTransferencia(CredencialesUsuario credencialesUsuario, String receptor, int saldo) {
         return false;

@@ -1,63 +1,37 @@
 package proyectoBanco.banco;
 
-import proyectoBanco.administrador.Administrador;
 import proyectoBanco.cuentas.*;
 import proyectoBanco.usuarios.CredencialesUsuario;
 
-import java.util.HashMap;
-
 public class Sucursal {
-    private final CreadorCuenta creadorCuenta;
-    private final HashMap<String, Cuenta> cuentasActivas;
-    private Administrador administrador;
-    private GestorRoles gestorRoles;
+    private final GestorCuentas gestorCuentas;
+    private final GestorTransacciones gestorTransacciones;
 
-    public Sucursal(CreadorCuenta creadorCuenta) {
-        this.creadorCuenta = creadorCuenta;
-        this.cuentasActivas = new HashMap<>();
-        this.administrador = null;
-        this.gestorRoles = new GestorRoles();
+    public Sucursal(
+            GestorCuentas gestorCuentas,
+            GestorTransacciones gestorTransacciones
+        ) {
+        this.gestorCuentas = gestorCuentas;
+        this.gestorTransacciones = gestorTransacciones;
     }
 
-    public void cambiarAdministrador(Administrador administrador) {
-        this.administrador = administrador;
-    }
-
+    // Métodos de Cliente
     public Cuenta obtenerEstadoCuenta(CredencialesUsuario credenciales) {
-        return this.cuentasActivas.get(credenciales.usuario());
+        return this.gestorCuentas.obtenerCuenta(credenciales.usuario());
     }
-
-    public void solicitarCrearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
-        administrador.solicitarCrearCuenta(tipoCuenta, credenciales);
+    public boolean crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
+        return this.gestorCuentas.crearCuenta(credenciales.usuario(), tipoCuenta);
     }
-    public void solicitarEliminarCuenta(CredencialesUsuario credenciales) {
-        administrador.solicitarEliminarCuenta(credenciales);
+    public boolean eliminarCuenta(CredencialesUsuario credenciales) {
+        return this.gestorCuentas.eliminarCuenta(credenciales.usuario());
     }
-
-    public void crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
-        var cuenta = this.creadorCuenta.crearCuenta(tipoCuenta, credenciales.usuario());
-        this.cuentasActivas.put(credenciales.usuario(), cuenta);
+    public boolean depositar(CredencialesUsuario credenciales, int cantidad) {
+        return this.gestorTransacciones.manejarDeposito(credenciales.usuario(), cantidad);
     }
-    public void eliminarCuenta(CredencialesUsuario credenciales) {
-        this.cuentasActivas.remove(credenciales.usuario());
+    public boolean retirar(CredencialesUsuario credenciales, int cantidad) {
+        return this.gestorTransacciones.manejarRetiro(credenciales.usuario(), cantidad);
     }
-
-    public boolean intentarHacerDeposito(int cantidad, CredencialesUsuario credencialesUsuario) {
-        return this.cuentasActivas.get(credencialesUsuario.usuario()).depositar(cantidad);
-    }
-    public boolean intentarHacerRetiro(int cantidad, CredencialesUsuario credencialesUsuario) {
-        return this.cuentasActivas.get(credencialesUsuario.usuario()).retirar(cantidad);
-    }
-    public boolean intentarHacerTransferencia(String receptor, int cantidad, CredencialesUsuario credenciales) {
-        var cuentaEmisor = this.cuentasActivas.get(credenciales.usuario());
-        var cuentaReceptor = this.cuentasActivas.get(receptor);
-        if (cuentaEmisor == null || cuentaReceptor == null) {
-            return false;
-        }
-        var pudoRetirar = cuentaEmisor.retirar(cantidad);
-        if (pudoRetirar) {
-            cuentaReceptor.depositar(cantidad);
-        }
-        return pudoRetirar;
+    public boolean transferencia(CredencialesUsuario credenciales, String receptor, int cantidad) {
+        return this.gestorTransacciones.manejarTransferencia(credenciales.usuario(), receptor, cantidad);
     }
 }

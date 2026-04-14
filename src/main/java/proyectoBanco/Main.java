@@ -64,6 +64,7 @@ class Main {
         cliente2.depositar(100);
         cliente2.transferir("Mateo", 200);
         cliente2.transferir("Mateo", 200);
+        cliente1.retirar(20);
 
         System.out.println("\nDespués de la transferencia:\n");
 

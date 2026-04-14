@@ -9,6 +9,9 @@ public class UsuarioGestorCuentas extends Usuario {
 
     public void verOperacionesPendientes() {
         var operacionesPendientes = this.servicioBanco.obtenerOperacionesPendientes(this.credencialesUsuario);
+        if (operacionesPendientes == null) {
+            return;
+        }
         System.out.println("\nOperaciones pendientes:");
         for (var operacion: operacionesPendientes) {
             System.out.println(operacion);

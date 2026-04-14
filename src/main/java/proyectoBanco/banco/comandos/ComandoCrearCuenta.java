@@ -23,4 +23,9 @@ public class ComandoCrearCuenta implements Comando {
     public void ejecutar() {
         this.gestorCuentas.crearCuenta(this.propietario, this.tipoCuenta);
     }
+
+    @Override
+    public String toString() {
+        return "Crear cuenta - TC: " + this.tipoCuenta + " - Propietario: " + this.propietario;
+    }
 }

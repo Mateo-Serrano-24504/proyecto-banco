@@ -19,4 +19,9 @@ public class ComandoEliminarCuenta implements Comando {
     public void ejecutar() {
         this.gestorCuentas.eliminarCuenta(this.propietario);
     }
+
+    @Override
+    public String toString() {
+        return "Eliminar cuenta - Propietario: " + this.propietario;
+    }
 }

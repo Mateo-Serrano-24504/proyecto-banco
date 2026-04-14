@@ -6,7 +6,7 @@ import proyectoBanco.cuentas.Cuenta;
 import java.util.HashMap;
 
 public class GestorTransacciones extends Usuario {
-    private HashMap<CredencialesUsuario, Cuenta> cuentas;
+    private HashMap<String, Cuenta> cuentas;
 
     public GestorTransacciones(ServicioBanco servicioBanco, CredencialesUsuario credencialesUsuario) {
         super(servicioBanco, credencialesUsuario);
@@ -14,7 +14,7 @@ public class GestorTransacciones extends Usuario {
     }
 
     public boolean manejarDeposito(CredencialesUsuario credencialesUsuario, int saldo) {
-        var cuenta = this.cuentas.get(credencialesUsuario);
+        var cuenta = this.cuentas.get(credencialesUsuario.usuario());
         if (cuenta == null) {
             return false;
         }
@@ -22,7 +22,7 @@ public class GestorTransacciones extends Usuario {
         return true;
     }
     public boolean manejarRetiro(CredencialesUsuario credencialesUsuario, int saldo) {
-        var cuenta = this.cuentas.get(credencialesUsuario);
+        var cuenta = this.cuentas.get(credencialesUsuario.usuario());
         if (cuenta == null) {
             return false;
         }

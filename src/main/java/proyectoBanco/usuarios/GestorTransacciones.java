@@ -8,9 +8,13 @@ import java.util.HashMap;
 public class GestorTransacciones extends Usuario {
     private HashMap<String, Cuenta> cuentas;
 
-    public GestorTransacciones(ServicioBanco servicioBanco, CredencialesUsuario credencialesUsuario) {
+    public GestorTransacciones(
+            ServicioBanco servicioBanco,
+            CredencialesUsuario credencialesUsuario,
+            HashMap<String, Cuenta> cuentas
+    ) {
         super(servicioBanco, credencialesUsuario);
-        this.cuentas = new HashMap<>();
+        this.cuentas = cuentas;
     }
 
     public boolean manejarDeposito(CredencialesUsuario credencialesUsuario, int saldo) {

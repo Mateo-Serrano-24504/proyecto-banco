@@ -14,10 +14,11 @@ public class GestorCuentas extends Usuario {
     public GestorCuentas(
             ServicioBanco servicioBanco,
             CredencialesUsuario credencialesUsuario,
+            HashMap<String, Cuenta> cuentas,
             CreadorCuenta creadorCuenta
     ) {
         super(servicioBanco, credencialesUsuario);
-        this.cuentas = new HashMap<>();
+        this.cuentas = cuentas;
         this.creadorCuenta = creadorCuenta;
     }
 

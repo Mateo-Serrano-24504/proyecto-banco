@@ -42,8 +42,8 @@ public class GestorCuentas extends Usuario {
         this.cuentas.remove(credencialesUsuario);
         return true;
     }
-    public Cuenta obtenerCuenta() {
-        return new CuentaCorriente("");
+    public Cuenta obtenerCuenta(CredencialesUsuario credencialesUsuario) {
+        return this.cuentas.get(credencialesUsuario);
     }
     public void iterarCuentas() {}
 }

@@ -3,7 +3,10 @@ package proyectoBanco.banco;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.usuarios.CredencialesUsuario;
+import proyectoBanco.usuarios.PerfilUsuario;
+import proyectoBanco.usuarios.RolUsuario;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ServicioBanco {
@@ -20,9 +23,13 @@ public class ServicioBanco {
     }
 
     // Operaciones de cliente
-    public boolean crearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credencialesUsuario) {
-        if (this.credencialesInvalidas(credencialesUsuario)) return false;
-        this.sucursal.crearCuenta(tipoCuenta, credencialesUsuario);
+    public boolean crearCuenta(PerfilUsuario perfilUsuario, TipoCuenta tipoCuenta) {
+        var roles = new HashSet<RolUsuario>();
+        roles.add(RolUsuario.Cliente);
+        if (this.gestorUsuarios.agregarUsuarioSiNoExiste(perfilUsuario, roles)) {
+            return false;
+        }
+        this.sucursal.crearCuenta(tipoCuenta, perfilUsuario.generarCredenciales());
         return true;
     }
     public boolean eliminarCuenta(CredencialesUsuario credencialesUsuario) {

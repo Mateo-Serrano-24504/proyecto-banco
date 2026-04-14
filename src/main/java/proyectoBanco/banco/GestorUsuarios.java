@@ -26,7 +26,7 @@ public class GestorUsuarios {
     public boolean agregarUsuarioSiNoExiste(PerfilUsuario perfilUsuario, Set<RolUsuario> rolesUsuario) {
         var perfil = this.perfilesUsuarios.get(perfilUsuario.obtenerNombre());
         if (perfil != null) {
-            return perfil.equals(perfilUsuario);
+            return perfil.generarCredenciales().equals(perfilUsuario.generarCredenciales());
         }
         this.perfilesUsuarios.put(perfilUsuario.obtenerNombre(), perfilUsuario);
         this.gestorRoles.agregarRolesDeUsuario(perfilUsuario.obtenerNombre(), rolesUsuario);

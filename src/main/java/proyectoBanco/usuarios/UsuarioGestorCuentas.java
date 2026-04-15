@@ -1,21 +1,27 @@
 package proyectoBanco.usuarios;
 
 import proyectoBanco.banco.ServicioBanco;
+import proyectoBanco.banco.servicios.ServicioGestorCuentas;
 import proyectoBanco.cuentas.TipoCuenta;
 
 public class UsuarioGestorCuentas extends Usuario {
-    public UsuarioGestorCuentas(ServicioBanco servicioBanco, PerfilUsuario perfilUsuario) {
-        super(servicioBanco, perfilUsuario);
+    private final ServicioGestorCuentas servicioGestorCuentas;
+
+    public UsuarioGestorCuentas(PerfilUsuario perfilUsuario, ServicioGestorCuentas servicioGestorCuentas) {
+        super(perfilUsuario);
+        this.servicioGestorCuentas = servicioGestorCuentas;
     }
 
     public boolean crearCuenta(PerfilUsuario perfilUsuario, TipoCuenta tipoCuenta) {
-        return this.servicioBanco.crearCuenta(super.perfilUsuario.generarCredenciales(), perfilUsuario, tipoCuenta);
+        return this.servicioGestorCuentas.crearCuenta(super.perfilUsuario.generarCredenciales(), tipoCuenta);
     }
     public boolean eliminarCuenta(PerfilUsuario perfilUsuario) {
-        return this.servicioBanco.eliminarCuenta(super.perfilUsuario.generarCredenciales(), perfilUsuario);
+        return this.servicioGestorCuentas.eliminarCuenta(super.perfilUsuario.generarCredenciales());
     }
     public void verOperacionesPendientes() {
-        var operacionesPendientes = this.servicioBanco.obtenerOperacionesPendientes(super.perfilUsuario.generarCredenciales());
+        var operacionesPendientes = this.servicioGestorCuentas.obtenerVistaOperacionesPendientes(
+                super.perfilUsuario.generarCredenciales()
+        );
         if (operacionesPendientes == null) {
             return;
         }
@@ -25,6 +31,7 @@ public class UsuarioGestorCuentas extends Usuario {
         }
     }
     public boolean resolverOperacion(int indice) {
-        return this.servicioBanco.resolverOperacion(super.perfilUsuario.generarCredenciales(), indice);
+        this.servicioGestorCuentas.resolverOperacion(super.perfilUsuario.generarCredenciales(), indice);
+        return true;
     }
 }

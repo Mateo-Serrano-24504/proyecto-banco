@@ -1,41 +1,36 @@
 package proyectoBanco.usuarios;
 
 import proyectoBanco.banco.ServicioBanco;
+import proyectoBanco.banco.servicios.ServicioCliente;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 
 public class Cliente extends Usuario {
-    private Cuenta vistaCuenta;
+    private final ServicioCliente servicioCliente;
 
-    public Cliente(ServicioBanco servicioBanco, PerfilUsuario perfilUsuario) {
-        super(servicioBanco, perfilUsuario);
-        this.vistaCuenta = null;
+    public Cliente(PerfilUsuario perfilUsuario, ServicioCliente serviciocliente) {
+        super(perfilUsuario);
+        this.servicioCliente = serviciocliente;
     }
 
     public boolean solicitarCrearCuenta(TipoCuenta tipoCuenta) {
-        return this.servicioBanco.solicitarCrearCuenta(super.perfilUsuario, tipoCuenta);
+        return this.servicioCliente.solicitarCrearCuenta(super.perfilUsuario.generarCredenciales(), tipoCuenta);
     }
     public boolean solicitarEliminarCuenta() {
-        return this.servicioBanco.solicitarEliminarCuenta(super.perfilUsuario.generarCredenciales());
-    }
-    public void actualizarVistaCuenta() {
-        this.vistaCuenta = this.servicioBanco.obtenerEstadoCuenta(
-                super.perfilUsuario.generarCredenciales()
-        );
+        return this.servicioCliente.solicitarEliminarCuenta(super.perfilUsuario.generarCredenciales());
     }
     public boolean depositar(int cantidad) {
-        return this.servicioBanco.depositar(cantidad, super.perfilUsuario.generarCredenciales());
+        return this.servicioCliente.depositar(super.perfilUsuario.generarCredenciales(), cantidad);
     }
     public boolean retirar(int cantidad) {
-        return this.servicioBanco.retirar(cantidad, super.perfilUsuario.generarCredenciales());
+        return this.servicioCliente.retirar(super.perfilUsuario.generarCredenciales(), cantidad);
     }
     public boolean transferir(String receptor, int cantidad) {
-        return this.servicioBanco.transferir(super.perfilUsuario.generarCredenciales(), receptor, cantidad);
+        return this.servicioCliente.transferir(super.perfilUsuario.generarCredenciales(), receptor, cantidad);
     }
     public void verEstadoCuenta() {
-        if (this.vistaCuenta == null) {
-            return;
-        }
-        this.vistaCuenta.verBalance();
+        this.servicioCliente.obtenerEstadoCuenta(
+                super.perfilUsuario.generarCredenciales()
+        ).verBalance();
     }
 }

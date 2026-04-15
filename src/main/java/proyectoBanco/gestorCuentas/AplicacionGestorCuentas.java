@@ -1,6 +1,7 @@
 package proyectoBanco.gestorCuentas;
 
 import proyectoBanco.banco.*;
+import proyectoBanco.banco.servicios.*;
 import proyectoBanco.cuentas.CreadorCuenta;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
@@ -14,10 +15,37 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class AplicacionGestorCuentas {
-    private final ServicioComandoGestorCuentas servicioComandoGestorCuentas;
+    public final Scanner scanner;
+    public final ServicioEntrada servicioEntrada;
+    public final HashMap<String, Cuenta> cuentas;
+    public final CreadorCuenta creadorCuenta;
+    public final GestorCuentas gestorCuentas;
+    public final GestorTransacciones gestorTransacciones;
+    public final GestorRoles gestorRoles;
+    public final GestorUsuarios gestorUsuarios;
+    public final ServicioCuentaCliente servicioCuentaCliente;
+    public final ServicioTransaccion servicioTransaccion;
+    public final ServicioGestionCuentas servicioGestionCuentas;
+    public final ServicioCliente servicioCliente;
+    public final ServicioGestorCuentas servicioGestorCuentas;
 
-    public AplicacionGestorCuentas(ServicioComandoGestorCuentas servicioComandoGestorCuentas) {
-        this.servicioComandoGestorCuentas = servicioComandoGestorCuentas;
+    public ServicioComandoGestorCuentas servicioComandoGestorCuentas;
+
+    public AplicacionGestorCuentas() {
+        this.scanner = new Scanner(System.in);
+        this.servicioEntrada = new ServicioEntrada(scanner);
+        this.cuentas = new HashMap<String, Cuenta>();
+        this.creadorCuenta = new CreadorCuenta();
+        this.gestorCuentas = new GestorCuentas(cuentas, creadorCuenta);
+        this.gestorTransacciones = new GestorTransacciones(cuentas);
+        this.gestorRoles = new GestorRoles();
+        this.gestorUsuarios = new GestorUsuarios(gestorRoles);
+        this.servicioCuentaCliente = new ServicioCuentaCliente(gestorCuentas);
+        this.servicioTransaccion = new ServicioTransaccion(gestorTransacciones);
+        this.servicioGestionCuentas = new ServicioGestionCuentas(gestorCuentas);
+        this.servicioCliente = new ServicioCliente(gestorUsuarios, servicioCuentaCliente, servicioTransaccion);
+        this.servicioGestorCuentas = new ServicioGestorCuentas(gestorUsuarios, servicioGestionCuentas);
+        this.servicioComandoGestorCuentas = null;
     }
 
     public boolean manejarComando() {
@@ -33,51 +61,23 @@ public class AplicacionGestorCuentas {
         while (this.manejarComando());
     }
 
-    public static ServicioBanco crearServicioBanco() {
-        var cuentas = new HashMap<String, Cuenta>();
-        var creadorCuenta = new CreadorCuenta();
-        var gestorCuentas = new GestorCuentas(cuentas, creadorCuenta);
-        var gestorTransaccs = new GestorTransacciones(cuentas);
-        var gestorRoles = new GestorRoles();
-        var gestorUsuarios = new GestorUsuarios(gestorRoles);
-        var sucursal = new Sucursal(gestorCuentas, gestorTransaccs);
-        return new ServicioBanco(sucursal, gestorUsuarios);
-    }
-
     public static void main(String[] args) {
-        var servicioBanco = AplicacionGestorCuentas.crearServicioBanco();
+        var aplicacion = new AplicacionGestorCuentas();
 
         var perfilGestorCuentas = new PerfilUsuario("Mateo", "123", "24/5/2004");
+
+        var fabrica = new FabricaComandoGestorCuentas(
+                aplicacion.servicioGestorCuentas,
+                perfilGestorCuentas
+        );
+        aplicacion.servicioComandoGestorCuentas = new ServicioComandoGestorCuentas(
+                aplicacion.servicioEntrada,
+                fabrica
+        );
+
         var roles = new HashSet<>(Set.of(RolUsuario.GestorCuentas));
-        servicioBanco.crearUsuario(perfilGestorCuentas, roles);
 
         var perfilUsuario1 = new PerfilUsuario("Carlos","hola", "hace mucho");
         var perfilUsuario2 = new PerfilUsuario("Rosa", "lol", "hace relativamente poco");
-
-        var cliente1 = new Cliente(servicioBanco, perfilUsuario1);
-        var cliente2 = new Cliente(servicioBanco, perfilUsuario2);
-
-        cliente1.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
-        cliente2.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
-
-        cliente1.depositar(100);
-        cliente1.transferir("Rosa", 100);
-
-        cliente1.solicitarEliminarCuenta();
-
-        var fabrica = new FabricaComandoGestorCuentas(servicioBanco, perfilGestorCuentas);
-        var servicioEntrada = new ServicioEntrada(new Scanner(System.in));
-        var servicioComandoGestorCuentas = new ServicioComandoGestorCuentas(servicioEntrada, fabrica);
-        var app = new AplicacionGestorCuentas(servicioComandoGestorCuentas);
-
-        app.manejarComandos();
-
-        System.out.println("\nEstados de cuenta.\n\nCuenta 1:\n");
-        cliente1.actualizarVistaCuenta();
-        cliente1.verEstadoCuenta();
-
-        System.out.println("\nCuenta 2:\n");
-        cliente2.actualizarVistaCuenta();
-        cliente2.verEstadoCuenta();
     }
 }

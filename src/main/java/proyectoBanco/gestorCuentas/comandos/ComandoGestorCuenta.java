@@ -1,13 +1,15 @@
 package proyectoBanco.gestorCuentas.comandos;
 
 import proyectoBanco.banco.ServicioBanco;
+import proyectoBanco.banco.servicios.ServicioGestorCuentas;
 import proyectoBanco.usuarios.PerfilUsuario;
 
 public abstract class ComandoGestorCuenta {
-    protected ServicioBanco servicioBanco;
+    protected ServicioGestorCuentas servicioGestorCuentas;
     protected PerfilUsuario perfilUsuarioGestorCuentas;
-    public ComandoGestorCuenta(ServicioBanco servicioBanco, PerfilUsuario perfilUsuarioGestorCuentas) {
-        this.servicioBanco = servicioBanco;
+
+    public ComandoGestorCuenta(ServicioGestorCuentas servicioGestorCuentas, PerfilUsuario perfilUsuarioGestorCuentas) {
+        this.servicioGestorCuentas = servicioGestorCuentas;
         this.perfilUsuarioGestorCuentas = perfilUsuarioGestorCuentas;
     }
 

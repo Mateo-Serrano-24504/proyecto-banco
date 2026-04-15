@@ -1,13 +1,12 @@
 package proyectoBanco.usuarios;
 
 import proyectoBanco.banco.ServicioBanco;
+import proyectoBanco.banco.servicios.ServicioProtegido;
 
 public class Usuario {
-    protected final ServicioBanco servicioBanco;
     protected final PerfilUsuario perfilUsuario;
 
-    public Usuario(ServicioBanco servicioBanco, PerfilUsuario perfilUsuario) {
-        this.servicioBanco = servicioBanco;
+    public Usuario(PerfilUsuario perfilUsuario) {
         this.perfilUsuario = perfilUsuario;
     }
 }

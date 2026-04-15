@@ -1,8 +1,5 @@
 package proyectoBanco.usuarios;
 
-import proyectoBanco.banco.ServicioBanco;
-import proyectoBanco.banco.servicios.ServicioProtegido;
-
 public class Usuario {
     protected final PerfilUsuario perfilUsuario;
 

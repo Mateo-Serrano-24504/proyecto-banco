@@ -1,6 +1,5 @@
 package proyectoBanco.usuarios;
 
-import proyectoBanco.banco.ServicioBanco;
 import proyectoBanco.banco.servicios.ServicioGestorCuentas;
 import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.gestorCuentas.comandos.ComandoListar;

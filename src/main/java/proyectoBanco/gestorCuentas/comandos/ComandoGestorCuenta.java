@@ -1,6 +1,5 @@
 package proyectoBanco.gestorCuentas.comandos;
 
-import proyectoBanco.banco.ServicioBanco;
 import proyectoBanco.banco.servicios.ServicioGestorCuentas;
 import proyectoBanco.usuarios.PerfilUsuario;
 

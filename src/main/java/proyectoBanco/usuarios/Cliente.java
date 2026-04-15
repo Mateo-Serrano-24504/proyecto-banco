@@ -1,8 +1,6 @@
 package proyectoBanco.usuarios;
 
-import proyectoBanco.banco.ServicioBanco;
 import proyectoBanco.banco.servicios.ServicioCliente;
-import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 
 public class Cliente extends Usuario {

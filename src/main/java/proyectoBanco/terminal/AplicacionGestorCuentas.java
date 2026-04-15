@@ -3,6 +3,8 @@ package proyectoBanco.terminal;
 import proyectoBanco.banco.*;
 import proyectoBanco.cuentas.CreadorCuenta;
 import proyectoBanco.cuentas.Cuenta;
+import proyectoBanco.cuentas.TipoCuenta;
+import proyectoBanco.usuarios.Cliente;
 import proyectoBanco.usuarios.PerfilUsuario;
 import proyectoBanco.usuarios.RolUsuario;
 
@@ -45,9 +47,23 @@ public class AplicacionGestorCuentas {
     public static void main(String[] args) {
         var servicioBanco = AplicacionGestorCuentas.crearServicioBanco();
 
-        var perfilGestorCuentas = new PerfilUsuario("Mateo", "235", "La Boca");
+        var perfilGestorCuentas = new PerfilUsuario("Mateo", "123", "24/5/2004");
         var roles = new HashSet<>(Set.of(RolUsuario.GestorCuentas));
         servicioBanco.crearUsuario(perfilGestorCuentas, roles);
+
+        var perfilUsuario1 = new PerfilUsuario("Carlos","hola", "hace mucho");
+        var perfilUsuario2 = new PerfilUsuario("Rosa", "lol", "hace relativamente poco");
+
+        var cliente1 = new Cliente(servicioBanco, perfilUsuario1);
+        var cliente2 = new Cliente(servicioBanco, perfilUsuario2);
+
+        cliente1.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
+        cliente2.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
+
+        cliente1.depositar(100);
+        cliente1.transferir("Rosa", 100);
+
+        cliente1.solicitarEliminarCuenta();
 
         var fabrica = new FabricaComandoGestorCuentas(servicioBanco, perfilGestorCuentas);
         var servicioEntrada = new ServicioEntrada(new Scanner(System.in));
@@ -55,5 +71,13 @@ public class AplicacionGestorCuentas {
         var app = new AplicacionGestorCuentas(servicioComandoGestorCuentas);
 
         app.manejarComandos();
+
+        System.out.println("\nEstados de cuenta.\n\nCuenta 1:\n");
+        cliente1.actualizarVistaCuenta();
+        cliente1.verEstadoCuenta();
+
+        System.out.println("\nCuenta 2:\n");
+        cliente2.actualizarVistaCuenta();
+        cliente2.verEstadoCuenta();
     }
 }

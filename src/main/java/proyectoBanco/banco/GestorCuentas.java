@@ -12,7 +12,7 @@ import java.util.*;
 public class GestorCuentas  {
     private final HashMap<String, Cuenta> cuentas;
     private final CreadorCuenta creadorCuenta;
-    private final List<ComandoCuenta> tareasPendientes;
+    private final Map<Integer, ComandoCuenta> tareasPendientes;
 
     public GestorCuentas(
             HashMap<String, Cuenta> cuentas,
@@ -20,14 +20,20 @@ public class GestorCuentas  {
     ) {
         this.cuentas = cuentas;
         this.creadorCuenta = creadorCuenta;
-        this.tareasPendientes = new ArrayList<>();
+        this.tareasPendientes = new HashMap<>();
     }
 
     public void solicitarCrearCuenta(String usuario, TipoCuenta tipoCuenta) {
-        this.tareasPendientes.add(new ComandoCuentaCrearCuenta(this, usuario, tipoCuenta));
+        this.tareasPendientes.put(
+                this.tareasPendientes.size(),
+                new ComandoCuentaCrearCuenta(this, usuario, tipoCuenta)
+        );
     }
     public void solicitarEliminarCuenta(String usuario) {
-        this.tareasPendientes.add(new ComandoCuentaEliminarCuenta(this,usuario));
+        this.tareasPendientes.put(
+                this.tareasPendientes.size(),
+                new ComandoCuentaEliminarCuenta(this,usuario)
+        );
     }
 
     // Operaciones de cuenta
@@ -57,16 +63,17 @@ public class GestorCuentas  {
 
     // Operaciones de administrador
     public List<String> obtenerVistaOperacionesPendientes() {
-        return this.tareasPendientes
-                .stream()
-                .map(ComandoCuenta::toString)
-                .toList();
+        var vista = new ArrayList<String>();
+        for (var comando : this.tareasPendientes.entrySet()) {
+            vista.add(comando.getValue() + " / Código: " + comando.getKey());
+        }
+        return vista;
     }
-    public void resolverOperacion(int indice) {
-        if (indice < 0 || indice > this.tareasPendientes.size()) {
+    public void resolverOperacion(Integer codigo) {
+        var comando = this.tareasPendientes.remove(codigo);
+        if (comando == null) {
             return;
         }
-        var comando = this.tareasPendientes.removeFirst();
         comando.ejecutar();
     }
 }

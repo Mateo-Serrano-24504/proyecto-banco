@@ -28,6 +28,7 @@ public class AplicacionGestorCuentas {
     public final ServicioGestionCuentas servicioGestionCuentas;
     public final ServicioCliente servicioCliente;
     public final ServicioGestorCuentas servicioGestorCuentas;
+    public final ServicioUsuario servicioUsuario;
 
     public ServicioComandoGestorCuentas servicioComandoGestorCuentas;
 
@@ -45,6 +46,8 @@ public class AplicacionGestorCuentas {
         this.servicioGestionCuentas = new ServicioGestionCuentas(gestorCuentas);
         this.servicioCliente = new ServicioCliente(gestorUsuarios, servicioCuentaCliente, servicioTransaccion);
         this.servicioGestorCuentas = new ServicioGestorCuentas(gestorUsuarios, servicioGestionCuentas);
+        this.servicioUsuario = new ServicioUsuario(gestorUsuarios);
+
         this.servicioComandoGestorCuentas = null;
     }
 
@@ -65,6 +68,8 @@ public class AplicacionGestorCuentas {
         var aplicacion = new AplicacionGestorCuentas();
 
         var perfilGestorCuentas = new PerfilUsuario("Mateo", "123", "24/5/2004");
+        var roles = new HashSet<>(Set.of(RolUsuario.GestorCuentas));
+        var rolCliente = new HashSet<>(Set.of(RolUsuario.Cliente));
 
         var fabrica = new FabricaComandoGestorCuentas(
                 aplicacion.servicioGestorCuentas,
@@ -75,9 +80,20 @@ public class AplicacionGestorCuentas {
                 fabrica
         );
 
-        var roles = new HashSet<>(Set.of(RolUsuario.GestorCuentas));
+        aplicacion.servicioUsuario.crearUsuarioSiNoExiste(perfilGestorCuentas, roles);
 
         var perfilUsuario1 = new PerfilUsuario("Carlos","hola", "hace mucho");
         var perfilUsuario2 = new PerfilUsuario("Rosa", "lol", "hace relativamente poco");
+
+        aplicacion.servicioUsuario.crearUsuarioSiNoExiste(perfilUsuario1, rolCliente);
+        aplicacion.servicioUsuario.crearUsuarioSiNoExiste(perfilUsuario2, rolCliente);
+
+        var cliente1 = new Cliente(perfilUsuario1, aplicacion.servicioCliente);
+        cliente1.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
+        cliente1.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
+
+        aplicacion.manejarComandos();
+
+        cliente1.verEstadoCuenta();
     }
 }

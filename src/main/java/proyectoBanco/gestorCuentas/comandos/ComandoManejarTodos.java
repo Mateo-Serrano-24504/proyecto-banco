@@ -9,15 +9,19 @@ public class ComandoManejarTodos extends ComandoGestorCuenta {
         super(servicioGestorCuentas, perfilUsuarioGestorCuentas);
     }
 
+    private Integer obtenerCodigo(String vistaComando) {
+        return Integer.parseInt(vistaComando.split("Código: ")[1]);
+    }
+
     @Override
     public void ejecutar() {
         var operacionesPendientes = super.servicioGestorCuentas.obtenerVistaOperacionesPendientes(
                 this.perfilUsuarioGestorCuentas.generarCredenciales()
         );
-        for (int i = 0; i < operacionesPendientes.size(); i++) {
+        for (var operacion : operacionesPendientes) {
             this.servicioGestorCuentas.resolverOperacion(
                     this.perfilUsuarioGestorCuentas.generarCredenciales(),
-                    0
+                    this.obtenerCodigo(operacion)
             );
         }
     }

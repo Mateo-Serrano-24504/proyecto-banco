@@ -23,7 +23,7 @@ public class ServicioGestionCuentas {
     public List<String> obtenerVistaOperacionesPendientes() {
         return this.gestorCuentas.obtenerVistaOperacionesPendientes();
     }
-    public void resolverOperacion(int indice) {
-        this.gestorCuentas.resolverOperacion(indice);
+    public void resolverOperacion(Integer codigo) {
+        this.gestorCuentas.resolverOperacion(codigo);
     }
 }

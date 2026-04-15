@@ -32,11 +32,11 @@ public class ServicioGestorCuentas extends ServicioProtegido {
         }
         return this.servicioGestionCuentas.obtenerVistaOperacionesPendientes();
     }
-    public boolean resolverOperacion(CredencialesUsuario credenciales, int indice) {
+    public boolean resolverOperacion(CredencialesUsuario credenciales, Integer codigo) {
         if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
-        this.servicioGestionCuentas.resolverOperacion(indice);
+        this.servicioGestionCuentas.resolverOperacion(codigo);
         return true;
     }
 }

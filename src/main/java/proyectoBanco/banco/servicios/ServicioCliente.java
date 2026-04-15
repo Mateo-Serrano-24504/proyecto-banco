@@ -26,11 +26,11 @@ public class ServicioCliente extends ServicioProtegido {
         }
         return this.servicioCuentaCliente.obtenerEstadoCuenta(credenciales);
     }
-    public boolean solicitarCrearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
+    public boolean solicitarCrearCuenta(CredencialesUsuario credenciales, TipoCuenta tipoCuenta) {
         if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
-        this.servicioCuentaCliente.solicitarCrearCuenta(tipoCuenta, credenciales);
+        this.servicioCuentaCliente.solicitarCrearCuenta(credenciales, tipoCuenta);
         return true;
     }
     public boolean solicitarEliminarCuenta(CredencialesUsuario credenciales) {

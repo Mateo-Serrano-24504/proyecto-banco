@@ -16,7 +16,7 @@ public class ServicioCuentaCliente {
     public Cuenta obtenerEstadoCuenta(CredencialesUsuario credenciales) {
         return this.gestorCuentas.obtenerCuenta(credenciales.usuario());
     }
-    public void solicitarCrearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
+    public void solicitarCrearCuenta(CredencialesUsuario credenciales, TipoCuenta tipoCuenta) {
         this.gestorCuentas.solicitarCrearCuenta(credenciales.usuario(), tipoCuenta);
     }
     public void solicitarEliminarCuenta(CredencialesUsuario credenciales) {

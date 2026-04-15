@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class GestorRoles {
-    private final HashMap<String, Set<RolUsuario>> rolesUsuario;
-
     private void agregarRolesDeUsuarioEnBdd(Map<String, Set<RolUsuario>> roles, String nombre, Set<RolUsuario> rolesUsuario) {
         if (!roles.containsKey(nombre)) {
             roles.put(nombre, rolesUsuario);
@@ -37,9 +35,7 @@ public class GestorRoles {
         return rolesActuales.contains(rolUsuario);
     }
 
-    public GestorRoles() {
-        this.rolesUsuario = new HashMap<>();
-    }
+    public GestorRoles() {}
 
     public void agregarRolesDeUsuario(String nombre, Set<RolUsuario> rolesUsuario) {
         AccesoBaseDeDatos.ejecutarSobreBaseDeDatos(

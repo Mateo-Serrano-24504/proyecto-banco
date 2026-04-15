@@ -10,7 +10,6 @@ import proyectoBanco.cuentas.TipoCuenta;
 import java.util.*;
 
 public class GestorCuentas  {
-    private final HashMap<String, Cuenta> cuentas;
     private final CreadorCuenta creadorCuenta;
     private final Map<Integer, ComandoCuenta> tareasPendientes;
 
@@ -36,10 +35,8 @@ public class GestorCuentas  {
     }
 
     public GestorCuentas(
-            HashMap<String, Cuenta> cuentas,
             CreadorCuenta creadorCuenta
     ) {
-        this.cuentas = cuentas;
         this.creadorCuenta = creadorCuenta;
         this.tareasPendientes = new HashMap<>();
     }

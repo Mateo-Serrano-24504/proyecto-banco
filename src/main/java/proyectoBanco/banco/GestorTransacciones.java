@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestorTransacciones {
-    private final HashMap<String, Cuenta> cuentas;
-
     private boolean manejarDepositoEnBdd(Map<String, Cuenta> cuentas, String usuario, int saldo) {
         var cuenta = cuentas.get(usuario);
         if (cuenta == null) {
@@ -33,11 +31,7 @@ public class GestorTransacciones {
         return cuentaEmisor.transferir(cuentaReceptor, saldo);
     }
 
-    public GestorTransacciones(
-            HashMap<String, Cuenta> cuentas
-    ) {
-        this.cuentas = cuentas;
-    }
+    public GestorTransacciones() {}
 
     public boolean manejarDeposito(String usuario, int saldo) {
         return AccesoBaseDeDatos.ejecutarSobreBaseDeDatos(

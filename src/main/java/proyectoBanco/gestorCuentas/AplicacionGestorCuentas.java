@@ -3,14 +3,12 @@ package proyectoBanco.gestorCuentas;
 import proyectoBanco.banco.*;
 import proyectoBanco.banco.servicios.*;
 import proyectoBanco.cuentas.CreadorCuenta;
-import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.usuarios.Cliente;
 import proyectoBanco.usuarios.PerfilUsuario;
 import proyectoBanco.usuarios.RolUsuario;
 import proyectoBanco.usuarios.UsuarioGestorCuentas;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -18,7 +16,6 @@ import java.util.Set;
 public class AplicacionGestorCuentas {
     public final Scanner scanner;
     public final ServicioEntrada servicioEntrada;
-    public final HashMap<String, Cuenta> cuentas;
     public final CreadorCuenta creadorCuenta;
     public final GestorCuentas gestorCuentas;
     public final GestorTransacciones gestorTransacciones;
@@ -37,10 +34,9 @@ public class AplicacionGestorCuentas {
     public AplicacionGestorCuentas() {
         this.scanner = new Scanner(System.in);
         this.servicioEntrada = new ServicioEntrada(scanner);
-        this.cuentas = new HashMap<String, Cuenta>();
         this.creadorCuenta = new CreadorCuenta();
-        this.gestorCuentas = new GestorCuentas(cuentas, creadorCuenta);
-        this.gestorTransacciones = new GestorTransacciones(cuentas);
+        this.gestorCuentas = new GestorCuentas(creadorCuenta);
+        this.gestorTransacciones = new GestorTransacciones();
         this.gestorRoles = new GestorRoles();
         this.gestorUsuarios = new GestorUsuarios(gestorRoles);
         this.servicioCuentaCliente = new ServicioCuentaCliente(gestorCuentas);

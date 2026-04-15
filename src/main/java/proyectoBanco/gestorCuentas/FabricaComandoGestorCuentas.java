@@ -1,9 +1,9 @@
-package proyectoBanco.terminal;
+package proyectoBanco.gestorCuentas;
 
 import proyectoBanco.banco.ServicioBanco;
-import proyectoBanco.terminal.comandos.ComandoGestorCuenta;
-import proyectoBanco.terminal.comandos.ComandoListar;
-import proyectoBanco.terminal.comandos.ComandoManejarTodos;
+import proyectoBanco.gestorCuentas.comandos.ComandoGestorCuenta;
+import proyectoBanco.gestorCuentas.comandos.ComandoListar;
+import proyectoBanco.gestorCuentas.comandos.ComandoManejarTodos;
 import proyectoBanco.usuarios.PerfilUsuario;
 
 public class FabricaComandoGestorCuentas {

@@ -1,6 +1,6 @@
-package proyectoBanco.terminal;
+package proyectoBanco.gestorCuentas;
 
-import proyectoBanco.terminal.comandos.ComandoGestorCuenta;
+import proyectoBanco.gestorCuentas.comandos.ComandoGestorCuenta;
 
 public class ServicioComandoGestorCuentas {
     private final ServicioEntrada servicioEntrada;

@@ -1,4 +1,4 @@
-package proyectoBanco.terminal.comandos;
+package proyectoBanco.gestorCuentas.comandos;
 
 import proyectoBanco.banco.ServicioBanco;
 import proyectoBanco.usuarios.PerfilUsuario;

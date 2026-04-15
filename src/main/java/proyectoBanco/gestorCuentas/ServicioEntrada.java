@@ -1,4 +1,4 @@
-package proyectoBanco.terminal;
+package proyectoBanco.gestorCuentas;
 
 import java.util.Scanner;
 

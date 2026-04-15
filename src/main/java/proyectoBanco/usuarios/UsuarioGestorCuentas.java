@@ -3,6 +3,7 @@ package proyectoBanco.usuarios;
 import proyectoBanco.banco.ServicioBanco;
 import proyectoBanco.banco.servicios.ServicioGestorCuentas;
 import proyectoBanco.cuentas.TipoCuenta;
+import proyectoBanco.gestorCuentas.comandos.ComandoListar;
 
 public class UsuarioGestorCuentas extends Usuario {
     private final ServicioGestorCuentas servicioGestorCuentas;
@@ -19,16 +20,11 @@ public class UsuarioGestorCuentas extends Usuario {
         return this.servicioGestorCuentas.eliminarCuenta(super.perfilUsuario.generarCredenciales());
     }
     public void verOperacionesPendientes() {
-        var operacionesPendientes = this.servicioGestorCuentas.obtenerVistaOperacionesPendientes(
-                super.perfilUsuario.generarCredenciales()
+        var comando = new ComandoListar(
+                this.servicioGestorCuentas,
+                this.perfilUsuario
         );
-        if (operacionesPendientes == null) {
-            return;
-        }
-        System.out.println("\nOperaciones pendientes:");
-        for (var operacion: operacionesPendientes) {
-            System.out.println(operacion);
-        }
+        comando.ejecutar();
     }
     public boolean resolverOperacion(int indice) {
         this.servicioGestorCuentas.resolverOperacion(super.perfilUsuario.generarCredenciales(), indice);

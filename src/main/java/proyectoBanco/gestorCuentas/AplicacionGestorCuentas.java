@@ -8,6 +8,7 @@ import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.usuarios.Cliente;
 import proyectoBanco.usuarios.PerfilUsuario;
 import proyectoBanco.usuarios.RolUsuario;
+import proyectoBanco.usuarios.UsuarioGestorCuentas;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,6 +82,10 @@ public class AplicacionGestorCuentas {
         );
 
         aplicacion.servicioUsuario.crearUsuarioSiNoExiste(perfilGestorCuentas, roles);
+        var usuarioGestorCuentas = new UsuarioGestorCuentas(
+                perfilGestorCuentas,
+                aplicacion.servicioGestorCuentas
+        );
 
         var perfilUsuario1 = new PerfilUsuario("Carlos","hola", "hace mucho");
         var perfilUsuario2 = new PerfilUsuario("Rosa", "lol", "hace relativamente poco");
@@ -95,5 +100,7 @@ public class AplicacionGestorCuentas {
         aplicacion.manejarComandos();
 
         cliente1.verEstadoCuenta();
+
+        usuarioGestorCuentas.verOperacionesPendientes();
     }
 }

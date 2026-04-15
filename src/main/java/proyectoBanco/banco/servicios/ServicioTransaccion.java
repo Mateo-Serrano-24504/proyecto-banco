@@ -1,5 +1,6 @@
-package proyectoBanco.banco;
+package proyectoBanco.banco.servicios;
 
+import proyectoBanco.banco.GestorTransacciones;
 import proyectoBanco.usuarios.CredencialesUsuario;
 
 public class ServicioTransaccion {

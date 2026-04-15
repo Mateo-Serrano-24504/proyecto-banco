@@ -1,5 +1,6 @@
-package proyectoBanco.banco;
+package proyectoBanco.banco.servicios;
 
+import proyectoBanco.banco.GestorCuentas;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.usuarios.CredencialesUsuario;

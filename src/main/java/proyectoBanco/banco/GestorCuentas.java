@@ -14,6 +14,27 @@ public class GestorCuentas  {
     private final CreadorCuenta creadorCuenta;
     private final Map<Integer, ComandoCuenta> tareasPendientes;
 
+    private boolean crearCuentaEnBdd(Map<String, Cuenta> cuentas, String usuario, TipoCuenta tipoCuenta) {
+        if (cuentas.containsKey(usuario)) {
+            return false;
+        }
+        cuentas.put(
+                usuario,
+                this.creadorCuenta.crearCuenta(
+                        tipoCuenta,
+                        usuario
+                )
+        );
+        return true;
+    }
+    private boolean eliminarCuentaEnBdd(Map<String, Cuenta> cuentas, String usuario) {
+        if (!cuentas.containsKey(usuario)) {
+            return false;
+        }
+        cuentas.remove(usuario);
+        return true;
+    }
+
     public GestorCuentas(
             HashMap<String, Cuenta> cuentas,
             CreadorCuenta creadorCuenta
@@ -38,27 +59,19 @@ public class GestorCuentas  {
 
     // Operaciones de cuenta
     public boolean crearCuenta(String usuario, TipoCuenta tipoCuenta) {
-        if (this.cuentas.containsKey(usuario)) {
-            return false;
-        }
-        this.cuentas.put(
-                usuario,
-                this.creadorCuenta.crearCuenta(
-                        tipoCuenta,
-                        usuario
-                )
+        return AccesoBaseDeDatos.ejecutarSobreBaseDeDatos(
+                bdd -> this.crearCuentaEnBdd(bdd.cuentas, usuario, tipoCuenta)
         );
-        return true;
     }
     public boolean eliminarCuenta(String usuario) {
-        if (!this.cuentas.containsKey(usuario)) {
-            return false;
-        }
-        this.cuentas.remove(usuario);
-        return true;
+        return AccesoBaseDeDatos.ejecutarSobreBaseDeDatos(
+                bdd -> this.eliminarCuentaEnBdd(bdd.cuentas, usuario)
+        );
     }
     public Cuenta obtenerCuenta(String usuario) {
-        return this.cuentas.get(usuario);
+        return AccesoBaseDeDatos.ejecutarSobreBaseDeDatos(
+                bdd -> bdd.cuentas.get(usuario)
+        );
     }
 
     // Operaciones de administrador

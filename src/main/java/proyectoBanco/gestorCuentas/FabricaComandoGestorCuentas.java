@@ -28,7 +28,7 @@ public class FabricaComandoGestorCuentas {
                     codigo
             );
         }
-        return null;
+        return new ComandoManejarTodos(this.servicioGestorCuentas, this.perfilUsuarioGestorCuentas);
     }
 
     public FabricaComandoGestorCuentas(ServicioGestorCuentas servicioGestorCuentas, PerfilUsuario perfilUsuarioGestorCuentas) {

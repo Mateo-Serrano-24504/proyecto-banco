@@ -15,7 +15,7 @@ public class ServicioGestorCuentas extends ServicioProtegido {
     }
 
     public boolean crearCuenta(CredencialesUsuario credenciales, TipoCuenta tipoCuenta) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
         return this.servicioGestionCuentas.crearCuenta(credenciales, tipoCuenta);

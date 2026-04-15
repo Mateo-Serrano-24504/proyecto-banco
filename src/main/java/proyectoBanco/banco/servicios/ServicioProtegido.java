@@ -10,7 +10,7 @@ public class ServicioProtegido {
         this.gestorUsuarios = gestorUsuarios;
     }
 
-    protected boolean validarCredenciales(CredencialesUsuario credencialesUsuario) {
-        return this.gestorUsuarios.verificarCredencialesUsuario(credencialesUsuario);
+    protected boolean credencialesInvalidas(CredencialesUsuario credencialesUsuario) {
+        return !this.gestorUsuarios.verificarCredencialesUsuario(credencialesUsuario);
     }
 }

@@ -21,20 +21,20 @@ public class ServicioCliente extends ServicioProtegido {
 
     // Operaciones de cuentas
     public Cuenta obtenerEstadoCuenta(CredencialesUsuario credenciales) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return null;
         }
         return this.servicioCuentaCliente.obtenerEstadoCuenta(credenciales);
     }
     public boolean solicitarCrearCuenta(TipoCuenta tipoCuenta, CredencialesUsuario credenciales) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
         this.servicioCuentaCliente.solicitarCrearCuenta(tipoCuenta, credenciales);
         return true;
     }
     public boolean solicitarEliminarCuenta(CredencialesUsuario credenciales) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
         this.servicioCuentaCliente.solicitarEliminarCuenta(credenciales);
@@ -43,19 +43,19 @@ public class ServicioCliente extends ServicioProtegido {
 
     // Operaciones de transacción
     public boolean depositar(CredencialesUsuario credenciales, int cantidad) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
         return this.servicioTransaccion.depositar(credenciales, cantidad);
     }
     public boolean retirar(CredencialesUsuario credenciales, int cantidad) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
         return this.servicioTransaccion.retirar(credenciales, cantidad);
     }
     public boolean transferir(CredencialesUsuario credenciales, String receptor, int cantidad) {
-        if (!super.validarCredenciales(credenciales)) {
+        if (super.credencialesInvalidas(credenciales)) {
             return false;
         }
         return this.servicioTransaccion.transferir(credenciales, receptor, cantidad);

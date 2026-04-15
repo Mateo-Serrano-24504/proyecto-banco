@@ -1,9 +1,7 @@
 package proyectoBanco.gestorCuentas;
 
 import proyectoBanco.banco.servicios.ServicioGestorCuentas;
-import proyectoBanco.gestorCuentas.comandos.ComandoGestorCuenta;
-import proyectoBanco.gestorCuentas.comandos.ComandoListar;
-import proyectoBanco.gestorCuentas.comandos.ComandoManejar;
+import proyectoBanco.gestorCuentas.comandos.*;
 import proyectoBanco.usuarios.PerfilUsuario;
 
 public class FabricaComandoGestorCuentas {
@@ -48,6 +46,12 @@ public class FabricaComandoGestorCuentas {
                     return new ComandoListar(this.servicioGestorCuentas, this.perfilUsuarioGestorCuentas);
                 }
                 return null;
+            }
+            case 'a' -> {
+                return new ComandoAyuda(this.servicioGestorCuentas, this.perfilUsuarioGestorCuentas);
+            }
+            case 's' -> {
+                return new ComandoSalir(this.servicioGestorCuentas, this.perfilUsuarioGestorCuentas);
             }
             default -> {
                 return null;

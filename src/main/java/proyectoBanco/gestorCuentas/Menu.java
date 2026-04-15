@@ -1,6 +1,7 @@
 package proyectoBanco.gestorCuentas;
 
 import proyectoBanco.gestorCuentas.comandos.ComandoGestorCuenta;
+import proyectoBanco.gestorCuentas.comandos.ComandoSalir;
 
 public class Menu {
     private final ServicioComandoGestorCuentas servicioComandoGestorCuentas;
@@ -25,8 +26,12 @@ public class Menu {
         while (true) {
             System.out.print("\n> ");
             comando = this.servicioComandoGestorCuentas.siguienteComando();
-            if (comando == null) {
+            if (comando instanceof ComandoSalir) {
                 break;
+            }
+            if (comando == null) {
+                System.out.println("Comando desconocido");
+                continue;
             }
             comando.ejecutar();
         }

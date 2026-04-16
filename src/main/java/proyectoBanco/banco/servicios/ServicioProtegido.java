@@ -1,16 +1,17 @@
 package proyectoBanco.banco.servicios;
 
 import proyectoBanco.banco.GestorUsuarios;
+import proyectoBanco.banco.concurrencia.GestorUsuariosConcurrente;
 import proyectoBanco.usuarios.CredencialesUsuario;
 
 public class ServicioProtegido {
-    protected GestorUsuarios gestorUsuarios;
+    protected GestorUsuariosConcurrente gestorUsuariosConcurrente;
 
-    protected ServicioProtegido(GestorUsuarios gestorUsuarios) {
-        this.gestorUsuarios = gestorUsuarios;
+    protected ServicioProtegido(GestorUsuariosConcurrente gestorUsuarios) {
+        this.gestorUsuariosConcurrente = gestorUsuarios;
     }
 
     protected boolean credencialesInvalidas(CredencialesUsuario credencialesUsuario) {
-        return !this.gestorUsuarios.verificarCredencialesUsuario(credencialesUsuario);
+        return !this.gestorUsuariosConcurrente.verificarCredencialesUsuario(credencialesUsuario);
     }
 }

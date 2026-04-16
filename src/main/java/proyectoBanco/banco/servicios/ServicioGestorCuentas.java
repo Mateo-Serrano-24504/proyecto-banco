@@ -1,6 +1,7 @@
 package proyectoBanco.banco.servicios;
 
 import proyectoBanco.banco.GestorUsuarios;
+import proyectoBanco.banco.concurrencia.GestorUsuariosConcurrente;
 import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.usuarios.CredencialesUsuario;
 import proyectoBanco.usuarios.PerfilUsuario;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ServicioGestorCuentas extends ServicioProtegido {
     private final ServicioGestionCuentas servicioGestionCuentas;
 
-    public ServicioGestorCuentas(GestorUsuarios gestorUsuarios, ServicioGestionCuentas servicioGestionCuentas) {
+    public ServicioGestorCuentas(GestorUsuariosConcurrente gestorUsuarios, ServicioGestionCuentas servicioGestionCuentas) {
         super(gestorUsuarios);
         this.servicioGestionCuentas = servicioGestionCuentas;
     }

@@ -1,6 +1,7 @@
 package proyectoBanco.banco.servicios;
 
 import proyectoBanco.banco.GestorUsuarios;
+import proyectoBanco.banco.concurrencia.GestorUsuariosConcurrente;
 import proyectoBanco.cuentas.Cuenta;
 import proyectoBanco.cuentas.TipoCuenta;
 import proyectoBanco.usuarios.CredencialesUsuario;
@@ -10,7 +11,7 @@ public class ServicioCliente extends ServicioProtegido {
     private final ServicioTransaccion servicioTransaccion;
 
     public ServicioCliente(
-            GestorUsuarios gestorUsuarios,
+            GestorUsuariosConcurrente gestorUsuarios,
             ServicioCuentaCliente servicioCuentaCliente,
             ServicioTransaccion servicioTransaccion
     ) {

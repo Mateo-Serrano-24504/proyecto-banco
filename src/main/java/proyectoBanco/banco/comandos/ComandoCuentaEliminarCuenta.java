@@ -1,22 +1,23 @@
 package proyectoBanco.banco.comandos;
 
 import proyectoBanco.banco.GestorCuentas;
+import proyectoBanco.banco.concurrencia.GestorCuentasConcurrente;
 
 public class ComandoCuentaEliminarCuenta implements ComandoCuenta {
-    private final GestorCuentas gestorCuentas;
+    private final GestorCuentasConcurrente gestorCuentasConcurrente;
     private final String propietario;
 
     public ComandoCuentaEliminarCuenta(
-            GestorCuentas gestorCuentas,
+            GestorCuentasConcurrente gestorCuentasConcurrente,
             String propietario
     ) {
-        this.gestorCuentas = gestorCuentas;
+        this.gestorCuentasConcurrente = gestorCuentasConcurrente;
         this.propietario = propietario;
     }
 
     @Override
     public void ejecutar() {
-        this.gestorCuentas.eliminarCuenta(this.propietario);
+        this.gestorCuentasConcurrente.eliminarCuenta(this.propietario);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package proyectoBanco.banco;
 
+import proyectoBanco.banco.concurrencia.GestorCuentasConcurrente;
 import proyectoBanco.banco.servicios.*;
 import proyectoBanco.cuentas.CreadorCuenta;
 
@@ -13,8 +14,9 @@ public class Sucursal {
         var gestorUsuarios = new GestorUsuarios(gestorRoles);
         var creadorCuenta = new CreadorCuenta();
         var gestorCuentas = new GestorCuentas(creadorCuenta);
-        var servicioGestionCuentas = new ServicioGestionCuentas(gestorCuentas);
-        var servicioCuentaCliente = new ServicioCuentaCliente(gestorCuentas);
+        var gestorCuentasConcurrente = new GestorCuentasConcurrente(gestorCuentas);
+        var servicioGestionCuentas = new ServicioGestionCuentas(gestorCuentasConcurrente);
+        var servicioCuentaCliente = new ServicioCuentaCliente(gestorCuentasConcurrente);
         var gestorTransacciones = new GestorTransacciones();
         var servicioTransaccion = new ServicioTransaccion(gestorTransacciones);
 

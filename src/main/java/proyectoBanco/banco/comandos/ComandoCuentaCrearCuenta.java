@@ -1,26 +1,26 @@
 package proyectoBanco.banco.comandos;
 
-import proyectoBanco.banco.GestorCuentas;
+import proyectoBanco.banco.concurrencia.GestorCuentasConcurrente;
 import proyectoBanco.cuentas.TipoCuenta;
 
 public class ComandoCuentaCrearCuenta implements ComandoCuenta {
-    private final GestorCuentas gestorCuentas;
+    private final GestorCuentasConcurrente gestorCuentasConcurrente;
     private final String propietario;
     private final TipoCuenta tipoCuenta;
 
     public ComandoCuentaCrearCuenta(
-            GestorCuentas gestorCuentas,
+            GestorCuentasConcurrente gestorCuentasConcurrente,
             String propietario,
             TipoCuenta tipoCuenta
     ) {
-        this.gestorCuentas = gestorCuentas;
+        this.gestorCuentasConcurrente = gestorCuentasConcurrente;
         this.propietario = propietario;
         this.tipoCuenta = tipoCuenta;
     }
 
     @Override
     public void ejecutar() {
-        this.gestorCuentas.crearCuenta(this.propietario, this.tipoCuenta);
+        this.gestorCuentasConcurrente.crearCuenta(this.propietario, this.tipoCuenta);
     }
 
     @Override

@@ -30,6 +30,7 @@ public class AplicacionGestorCuentas {
         var aplicacion = new AplicacionGestorCuentas();
 
         var sucursal1 = new Sucursal();
+        var sucursal2 = new Sucursal();
 
         var perfilGestorCuentas = new PerfilUsuario("Mateo", "123", "24/5/2004");
         var roles = new HashSet<>(Set.of(RolUsuario.GestorCuentas));
@@ -46,30 +47,34 @@ public class AplicacionGestorCuentas {
         aplicacion.menu = new Menu(aplicacion.servicioComandoGestorCuentas);
 
         sucursal1.servicioUsuario.crearUsuarioSiNoExiste(perfilGestorCuentas, roles);
-        var usuarioGestorCuentas = new UsuarioGestorCuentas(
+        var usuarioGestorCuentas1 = new UsuarioGestorCuentas(
                 perfilGestorCuentas,
                 sucursal1.servicioGestorCuentas
+        );
+        var usuarioGestorCuentas2 = new UsuarioGestorCuentas(
+                perfilGestorCuentas,
+                sucursal2.servicioGestorCuentas
         );
 
         var perfilUsuario1 = new PerfilUsuario("Carlos","hola", "hace mucho");
         var perfilUsuario2 = new PerfilUsuario("Rosa", "lol", "hace relativamente poco");
 
         sucursal1.servicioUsuario.crearUsuarioSiNoExiste(perfilUsuario1, rolCliente);
-        sucursal1.servicioUsuario.crearUsuarioSiNoExiste(perfilUsuario2, rolCliente);
+        sucursal2.servicioUsuario.crearUsuarioSiNoExiste(perfilUsuario2, rolCliente);
 
         var cliente1 = new Cliente(perfilUsuario1, sucursal1.servicioCliente);
-        var cliente2 = new Cliente(perfilUsuario2, sucursal1.servicioCliente);
+        var cliente2 = new Cliente(perfilUsuario2, sucursal2.servicioCliente);
         cliente1.solicitarCrearCuenta(TipoCuenta.CuentaAhorro);
-        cliente2.solicitarCrearCuenta(TipoCuenta.CuentaCorriente);
+
+        usuarioGestorCuentas2.crearCuenta(perfilUsuario2, TipoCuenta.CuentaCorriente);
+        cliente2.verEstadoCuenta();
 
         aplicacion.menu.ejecutar();
 
         cliente1.depositar(200);
-        cliente1.transferir(perfilUsuario2.obtenerNombre(), 400);
+        cliente1.transferir(perfilUsuario2.obtenerNombre(), 100);
 
         cliente1.verEstadoCuenta();
         cliente2.verEstadoCuenta();
-
-        usuarioGestorCuentas.verOperacionesPendientes();
     }
 }

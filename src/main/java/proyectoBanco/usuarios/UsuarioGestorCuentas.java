@@ -13,10 +13,17 @@ public class UsuarioGestorCuentas extends Usuario {
     }
 
     public boolean crearCuenta(PerfilUsuario perfilUsuario, TipoCuenta tipoCuenta) {
-        return this.servicioGestorCuentas.crearCuenta(perfilUsuario.generarCredenciales(), tipoCuenta);
+        return this.servicioGestorCuentas.crearCuenta(
+                super.perfilUsuario.generarCredenciales(),
+                perfilUsuario,
+                tipoCuenta
+        );
     }
     public boolean eliminarCuenta(PerfilUsuario perfilUsuario) {
-        return this.servicioGestorCuentas.eliminarCuenta(super.perfilUsuario.generarCredenciales());
+        return this.servicioGestorCuentas.eliminarCuenta(
+                super.perfilUsuario.generarCredenciales(),
+                perfilUsuario
+        );
     }
     public void verOperacionesPendientes() {
         var comando = new ComandoListar(
